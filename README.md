@@ -1,2 +1,2 @@
 # bread
-Data Structures and Algorithms designed for Reason 🍞🥖🥯🥐
+Data Structures and Algorithms designed for Reason 🍞🥖🥐

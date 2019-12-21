@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# This will be the location of this script.
+DIR="$(cd "$(dirname "$0")" && pwd)"
+
+find "$DIR/.." -type f | grep -e "\.rei\?$" | xargs refmt --in-place

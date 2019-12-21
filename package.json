@@ -1,0 +1,25 @@
+{
+  "name": "bread",
+  "version": "0.0.1",
+  "description": "Data Structures and Algorithms designed for Reason",
+  "license": "MIT",
+  "esy": {
+    "build": "refmterr dune build --profile=release",
+    "install": [
+      "esy-installer bread.install"
+    ]
+  },
+  "dependencies": {
+    "@opam/dune": "1.11.4",
+    "@reason-native/rely": "^3.1.0",
+    "ocaml": "~4.7.0"
+  },
+  "scripts": {
+    "format": "./scripts/format",
+    "test": "esy x TestExe --onlyPrintDetailsForFailedSuites"
+  },
+  "devDependencies": {
+    "ocaml": "~4.7.0",
+    "@opam/merlin": "*"
+  }
+}

@@ -1,0 +1,16 @@
+(library
+  (name Tests)
+  (ocamlopt_flags -linkall -g)
+  (libraries
+    Bread
+    rely.lib
+  )
+  (modules :standard \ TestExe)
+)
+(executable
+  (name TestExe)
+  (public_name TestExe)
+  (libraries Tests)
+  (modules TestExe)
+)
+(include_subdirs unqualified)

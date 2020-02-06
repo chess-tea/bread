@@ -1,6 +1,9 @@
 (executable
   (name BreadGen)
   (public_name BreadGen)
-  (libraries)
+  (libraries
+    fp
+    fs.lib
+  )
 )
 (include_subdirs unqualified)

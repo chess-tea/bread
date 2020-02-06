@@ -1,0 +1,7 @@
+(library
+  (name BreadConfig)
+  (ocamlopt_flags -linkall -g)
+  (wrapped false)
+  (libraries)
+)
+(include_subdirs unqualified)

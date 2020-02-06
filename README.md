@@ -15,18 +15,17 @@ We don't have docs yet. Hah, take that person exploring this library.
 
 ## Primary commands
 
-> TODO: update commands to reflect code generation
-
 - `esy` - Builds and installs
 - `esy format` - Runs refmt on all source code
 - `esy test` - Runs Rely tests
+- `esy gen` - Generates `lib/bread` source code for use
 
 ## Directory setup
 
-- `src/bread`
+- `src/bread_config`
   - This is the source code and configuration that will be used to build `lib/bread`. This is a level of indirection that allows outputting more performant, consistent, and better documented code.
 - `src/bread_gen`
-  - An executable that reads source code and configuration information from `src/bread` and creates `lib/bread`.
+  - An executable that reads source code and configuration information from `src/bread_config` and creates `lib/bread`.
 - `lib/bread`
   - The final output that can be consumed.
   - Everything in here is generated and should not be modified manually.

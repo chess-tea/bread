@@ -1,0 +1,5 @@
+(library
+  (name Bread)
+  (libraries)
+)
+(include_subdirs unqualified)

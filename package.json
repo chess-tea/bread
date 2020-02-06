@@ -16,7 +16,8 @@
   },
   "scripts": {
     "format": "./scripts/format",
-    "test": "esy x TestExe --onlyPrintDetailsForFailedSuites"
+    "test": "esy x TestExe --onlyPrintDetailsForFailedSuites",
+    "gen": "esy x BreadGen"
   },
   "devDependencies": {
     "ocaml": "~4.7.0",

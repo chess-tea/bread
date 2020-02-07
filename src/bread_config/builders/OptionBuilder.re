@@ -3,12 +3,15 @@ open Doc;
 
 <Files>
   <File path=Fp.(At.(dot / "Option.re"))>
-    <Let
+    <Binding
       name="map"
+      t="('a => 'b, option('a)) => option('b)"
       doc={
         <Doc>
-          <String> "Hello World!" </String>
-          <String> "Hello world again!" </String>
+          <String>
+            "`map(fn, o)` applies `fn` to the value of `o` and "
+          </String>
+          <String> "returns the result wrapped in an `option`" </String>
         </Doc>
       }>
       "(fn, o) =>"
@@ -16,6 +19,6 @@ open Doc;
       "  | Some(value) => Some(fn(value))"
       "  | None => None"
       "  }"
-    </Let>
+    </Binding>
   </File>
 </Files>;

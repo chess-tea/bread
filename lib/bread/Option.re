@@ -5,9 +5,9 @@
  */;
 
 /**
-Hello World!Hello world again!
+`map(fn, o)` applies `fn` to the value of `o` and returns the result wrapped in an `option`
 */
-let map = (fn, o) =>
+let map: ('a => 'b, option('a)) => option('b) = (fn, o) =>
   switch (o) {
   | Some(value) => Some(fn(value))
   | None => None

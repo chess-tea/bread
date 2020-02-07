@@ -4,6 +4,7 @@ module U = {
   let render = (d: doc) => {
     switch (d) {
     | String(s) => s
+    | Break => "\n"
     | _ => ""
     };
   };

@@ -13,7 +13,7 @@ type doc =
     })
   | Code(string)
   | MultiLineCode(list(string))
-  | Br
+  | Break
   | Indent(int)
   | Group(list(doc));
 

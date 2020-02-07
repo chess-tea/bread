@@ -2,6 +2,7 @@
   (name BreadGen)
   (public_name BreadGen)
   (libraries
+    BreadConfig
     fp
     fs.lib
   )

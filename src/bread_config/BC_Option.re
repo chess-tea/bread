@@ -1,8 +1,21 @@
-let test = 42;
+open Core;
+open Doc;
 
-module Map = {
-  let doc = <Doc> {DocTypes.String("Hello World!")} </Doc>;
-  let fn = "(fn, x) => switch (x) { | Some(x) => Some(fn(x)) | None => None }";
-};
-
-let functionDefinitions = [(Map.fn, Map.doc)];
+<Files>
+  <File path=Fp.(At.(dot / "Option.re"))>
+    <Let
+      name="map"
+      doc={
+        <Doc>
+          <String> "Hello World!" </String>
+          <String> "Hello world again!" </String>
+        </Doc>
+      }>
+      "(fn, o) =>"
+      "  switch (o) {"
+      "  | Some(value) => Some(fn(value))"
+      "  | None => None"
+      "  }"
+    </Let>
+  </File>
+</Files>;

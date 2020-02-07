@@ -22,7 +22,7 @@
   "scripts": {
     "format": "./scripts/format",
     "test": "esy x TestExe --onlyPrintDetailsForFailedSuites",
-    "gen": "esy x BreadGen"
+    "gen": "./scripts/gen"
   },
   "devDependencies": {
     "ocaml": "~4.7.0",

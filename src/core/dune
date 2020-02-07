@@ -1,0 +1,8 @@
+(library
+  (name Core)
+  (libraries
+    fp
+    fs.lib
+  )
+)
+(include_subdirs unqualified)

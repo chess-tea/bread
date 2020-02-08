@@ -15,7 +15,7 @@ itself is not implemented in plain source code; instead, it is generated from a 
 contains configuration information about implementation, documentation, and other metadata. This makes writing the implementations more painful, but gives us many nice things:
 
 - Docs are way better, can be enforced, and easily updated.
-  - Relationships between functions can be defined in meta data and easily included in all doc-blocks.
+  - Relationships between functions can be defined in metadata and easily included in all doc-blocks.
   - Module and function names can be verified.
   - Data structures that "inherit" functions can use the concrete module name in docs instead of them being generalized.
   - Can have multiple output formats [odoc](https://github.com/ocaml/odoc), markdown, html.
@@ -27,11 +27,14 @@ contains configuration information about implementation, documentation, and othe
   - We can put everything in one big file for you! If you want that I guess.
 - Functions with "variable args" can all have nice docs.
   - All those `map2`, `map3`, `mapX` like functions can be generated. (We have the technology!) We will be able to avoid `map2` having docs like: "This is the same as `map` with more args", and be able to repeat the proper documentation block each time.
+- Infix operators can be changed to match your preferences.
 - There are probably other cool things we can do. Let us know if you have ideas!
 
 # Documentation
 
-We don't have docs yet. Hah, take that person exploring this library. (Ironic isn't it?)
+We don't have docs yet. Hah, take that person exploring this library.
+
+(Ironic isn't it?)
 
 # Development
 

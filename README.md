@@ -21,7 +21,7 @@ contains configuration information about implementation, documentation, and othe
   - Can have multiple output formats [odoc](https://github.com/ocaml/odoc), markdown, html.
   - And many more!
 - Common functions can be inlined.
-  - It's normal to use some convenient helpers like `Option.flatMap` when implementing data structures. Using these helpers cause unnecssary function calls compared to using a `switch` directly, but the latter can be very annoying to write every time. We can avoid the annoyance with our fancy code generation and get faster code!
+  - It's normal to use some convenient helpers like `Option.flatMap` when implementing data structures. Using these helpers causes unnecessary function calls compared to using a `switch` directly, but the latter can be very annoying to write every time. We can avoid the annoyance with our fancy code generation and get faster code!
 - Project structure can be changed easily.
   - Don't want some fancy data structures that are big and bloated? No problem! We just won't generate that part of the library and its dependencies for you.
   - We can put everything in one big file for you! If you want that I guess.

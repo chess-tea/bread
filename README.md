@@ -11,14 +11,14 @@ Bread drastically increases the efficiency sandwiches can be created and used. I
 
 Like all good loaves of bread, the primary focus of this repo is on **documentation
 and usability**. This is accomplished with an extra layer of indirection. The library
-itself is not implemented in plain source code. Instead, it is generated from a "schema" that
+itself is not implemented in plain source code; instead, it is generated from a "schema" that
 contains configuration information about implementation, documentation, and other metadata. This makes writing the implementations more painful, but gives us many nice things:
 
 - Docs are way better, can be enforced, and easily updated.
   - Relationships between functions can be defined in meta data and easily included in all doc-blocks.
-  - Module names and functions names can be verified.
+  - Module and function names can be verified.
   - Data structures that "inherit" functions can use the concrete module name in docs instead of them being generalized.
-  - Can have multiple output formats [odoc](https://github.com/ocaml/odoc, markdown, html.
+  - Can have multiple output formats [odoc](https://github.com/ocaml/odoc), markdown, html.
   - And many more!
 - Common functions can be inlined.
   - It's normal to use some convenient helpers like `Option.flatMap` when implementing data structures. Using these helpers cause unnecssary function calls compared to using a `switch` directly, but the latter can be very annoying to write every time. We can avoid the annoyance with our fancy code generation and get faster code!

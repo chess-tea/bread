@@ -1,5 +1,6 @@
 open Core;
 open Doc;
+open Components;
 
 <Files>
   <File path=Fp.(At.(dot / "Option.re"))>

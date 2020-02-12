@@ -2,24 +2,13 @@ open Core;
 open Doc;
 open Components;
 
-<Files>
-  <File path=Fp.(At.(dot / "Option.re"))>
-    <Binding
-      name="map"
-      t="('a => 'b, option('a)) => option('b)"
-      doc={
-        <Doc>
-          <String>
-            "`map(fn, o)` applies `fn` to the value of `o` and "
-          </String>
-          <String> "returns the result wrapped in an `option`" </String>
-        </Doc>
-      }>
-      "(fn, o) =>"
-      "  switch (o) {"
-      "  | Some(value) => Some(fn(value))"
-      "  | None => None"
-      "  }"
-    </Binding>
-  </File>
-</Files>;
+<M name="Option">
+  <F
+    name="get"
+    args=["$1", "t($1)"]
+    return="$1"
+    argNames=["default", "option"]
+    desc="returns the value contained within $2 if it exists; otherwise, returns $1"
+    body={({arg}) => {Inline.optionSwitch(arg(2), arg(2), arg(1))}}
+  />
+</M>;

@@ -11,20 +11,6 @@ module Types = {
 
 open Types;
 
-module M = {
-  let createElement =
-      (
-        ~name: string,
-        ~docs: list(string)=[],
-        ~seeAlso: list(string)=[],
-        ~children: list(Types.mChild),
-        _,
-      )
-      : Types.m => {
-    {name, children};
-  };
-};
-
 module F = {
   let createElement =
       (
@@ -38,7 +24,7 @@ module F = {
          * better docs
          */
         ~argNames: list(string),
-        ~description: string,
+        ~desc: string,
         ~seeAlso: list(string)=[],
         ~examples: list(string)=[],
         ~body: Types.fUtils => list(string),
@@ -48,11 +34,11 @@ module F = {
       : Types.mChild => {
     let render = _mUtils => {
       let argArray = Caml.Array.of_list(argNames);
-      let fUtils = {arg: x => argArray[x]};
+      let fUtils = {arg: x => argArray[x - 1]};
       let argNames = Caml.String.concat(", ", argNames);
       let doc = [
         "/**",
-        name ++ "(" ++ argNames ++ ") " ++ description,
+        name ++ "(" ++ argNames ++ ") " ++ desc,
         "",
         "  - TODO: Examples, SeeAlso",
         "*/",

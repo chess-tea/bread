@@ -3,6 +3,8 @@
   (ocamlopt_flags -linkall -g)
   (libraries
     Bread
+    BreadConfig
+    Core
     rely.lib
   )
   (modules :standard \ TestExe)

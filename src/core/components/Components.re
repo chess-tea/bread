@@ -1,14 +1,3 @@
-// Types
-module Types = {
-  type fUtils = {arg: int => string};
-  type mUtils = {moduleName: unit => string};
-  type mChild = mUtils => list(string);
-  type m = {
-    name: string,
-    children: list(mChild),
-  };
-};
-
 open Types;
 
 module F = {
@@ -41,24 +30,13 @@ module F = {
         name ++ "(" ++ argNames ++ ") " ++ desc,
         "",
         "  - TODO: Examples, SeeAlso",
-        "*/",
+        " */",
       ];
       let bindingOpen = ["let " ++ name ++ " = (" ++ argNames ++ ") => {"];
-      let body = body(fUtils);
+      let body = Render.indent(body(fUtils));
       let bindingClose = ["};"];
       doc @ bindingOpen @ body @ bindingClose;
     };
     render;
-  };
-};
-
-module Render = {
-  let render = (m: m): list(string) => {
-    let mUtils: mUtils = {moduleName: () => m.name};
-    let moduleOpen = ["module " ++ m.name ++ " = {"];
-    let moduleInner =
-      m.children |> Caml.List.map(child => child(mUtils)) |> Caml.List.flatten;
-    let moduleClose = ["};", ""];
-    moduleOpen @ moduleInner @ moduleClose;
   };
 };

@@ -9,7 +9,7 @@ describe("Bread Config", ({test}) => {
     let optionFns = Registry.Modules.get();
     let contents =
       optionFns
-      |> Caml.List.map(Components.Render.render)
+      |> Caml.List.map(Render.m)
       |> Caml.List.flatten
       |> Caml.String.concat("\n");
     let contents = contents ++ "\n";

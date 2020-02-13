@@ -11,7 +11,7 @@ module Files = {
 };
 
 module Modules = {
-  type t = Core.Components.Types.m;
+  type t = Core.Types.m;
 
   module Private = {
     let items: ref(list(t)) = ref([]);

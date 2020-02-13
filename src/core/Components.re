@@ -43,7 +43,9 @@ module F = {
       let argNames = Caml.String.concat(", ", argNames);
       let doc = [
         "/**",
-        name ++ "(" ++ argNames ++ ") " ++ desc,
+        name ++ "(" ++ argNames ++ ")",
+        "",
+        desc,
         // "",
         // "  - TODO: Examples, SeeAlso",
         " */",

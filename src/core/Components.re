@@ -28,14 +28,14 @@ module F = {
       let doc = [
         "/**",
         name ++ "(" ++ argNames ++ ") " ++ desc,
-        "",
-        "  - TODO: Examples, SeeAlso",
+        // "",
+        // "  - TODO: Examples, SeeAlso",
         " */",
       ];
       let bindingOpen = ["let " ++ name ++ " = (" ++ argNames ++ ") => {"];
       let body = Render.indent(body(fUtils));
       let bindingClose = ["};"];
-      doc @ bindingOpen @ body @ bindingClose;
+      [""] @ doc @ bindingOpen @ body @ bindingClose @ [""];
     };
     render;
   };

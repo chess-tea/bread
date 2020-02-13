@@ -1,6 +1,6 @@
-let optionSwitch = (optionName, some, none) => [
-  "switch (" ++ optionName ++ ") {",
-  "| Some(" ++ optionName ++ ") => " ++ some,
+let optionSwitch = (optionSwitch, optionMatch, some, none) => [
+  "switch (" ++ optionSwitch ++ ") {",
+  "| Some(" ++ optionMatch ++ ") => " ++ some,
   "| None => " ++ none,
   "}",
 ];

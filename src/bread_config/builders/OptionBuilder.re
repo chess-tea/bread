@@ -1,5 +1,4 @@
 open Core;
-open Doc;
 open Components;
 
 <M name="Option">

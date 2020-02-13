@@ -21,4 +21,3 @@ get(default, option) returns the value contained within $2 if it exists; otherwi
     }
   };
 };
-

@@ -1,3 +1,6 @@
+# infix
+
+```
 module Symbols = {
   let map = ">>|"
   let flatMap = ">>=";
@@ -5,3 +8,4 @@ module Symbols = {
   let rightAssociativeApply = "@>";
   let rightAssociativeCompose = "@.";
 };
+```

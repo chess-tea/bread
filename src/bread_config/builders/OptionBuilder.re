@@ -59,6 +59,16 @@ open Components;
       )
     }}
   />
+  <F
+    name="getLazy"
+    args=["unit => $1", "t($1)"]
+    return="$1"
+    argNames=["defaultFn", "option"]
+    desc="returns the value contained within $2 if it exists; otherwise, returns the result of calling $1"
+    body={({arg}) => {
+      Inline.optionSwitch(arg(2), arg(2), arg(2), arg(1) ++ "()")
+    }}
+  />
   <X
     n=5
     make={i => {

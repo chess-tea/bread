@@ -65,6 +65,16 @@ getExn(option) returns the value contained within $1 if it exists; otherwise, ra
   };
   
   /**
+getLazy(defaultFn, option) returns the value contained within $2 if it exists; otherwise, returns the result of calling $1
+   */
+  let getLazy = (defaultFn, option) => {
+    switch (option) {
+    | Some(option) => option
+    | None => defaultFn()
+    }
+  };
+  
+  /**
 map(fn, option) changes value of an option according to $1 if all inputs are Some value
    */
   let map = (fn, option) => {

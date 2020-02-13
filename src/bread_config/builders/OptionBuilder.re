@@ -69,6 +69,36 @@ open Components;
       Inline.optionSwitch(arg(2), arg(2), arg(2), arg(1) ++ "()")
     }}
   />
+  <F
+    name="filterKeep"
+    args=["$1 => bool", "t($1)"]
+    return="t($1)"
+    argNames=["testFn", "option"]
+    desc="keeps the value and option unchanged if $1 is true when called with $2's value; otherwise, returns None"
+    body={({arg}) => {
+      [
+        "switch (" ++ arg(2) ++ ") {",
+        "| Some(value) when " ++ arg(1) ++ "(value) => " ++ arg(2),
+        "| _ => None",
+        "}",
+      ]
+    }}
+  />
+  <F
+    name="filterDrop"
+    args=["$1 => bool", "t($1)"]
+    return="t($1)"
+    argNames=["testFn", "option"]
+    desc="drops the value and returns None if $1 is true when called with $2's value; otherwise, returns $2 unchanged"
+    body={({arg}) => {
+      [
+        "switch (" ++ arg(2) ++ ") {",
+        "| Some(value) when " ++ arg(1) ++ "(value) => " ++ arg(2),
+        "| _ => None",
+        "}",
+      ]
+    }}
+  />
   <X
     n=5
     make={i => {

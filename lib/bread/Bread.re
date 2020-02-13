@@ -9,7 +9,7 @@
  */;
 
 module Option = {
-  
+
   /**
 isNone(option)
 
@@ -21,7 +21,7 @@ returns whether $1 is None
     | None => true
     }
   };
-  
+
   /**
 isSome(option)
 
@@ -33,7 +33,7 @@ returns whether $1 is Some
     | None => false
     }
   };
-  
+
   /**
 makeNone(value)
 
@@ -42,7 +42,7 @@ ignores $1 and always returns None
   let makeNone = (value) => {
     None
   };
-  
+
   /**
 makeSome(value)
 
@@ -51,7 +51,7 @@ returns Some($1)
   let makeSome = (value) => {
     Some(value)
   };
-  
+
   /**
 get(default, option)
 
@@ -63,7 +63,7 @@ returns the value contained within $2 if it exists; otherwise, returns $1
     | None => default
     }
   };
-  
+
   /**
 getExn(option)
 
@@ -75,7 +75,7 @@ returns the value contained within $1 if it exists; otherwise, raises exception
     | None => failwith("Unexpected None")
     }
   };
-  
+
   /**
 getLazy(defaultFn, option)
 
@@ -87,7 +87,31 @@ returns the value contained within $2 if it exists; otherwise, returns the resul
     | None => defaultFn()
     }
   };
-  
+
+  /**
+filterKeep(testFn, option)
+
+keeps the value and option unchanged if $1 is true when called with $2's value; otherwise, returns None
+   */
+  let filterKeep = (testFn, option) => {
+    switch (option) {
+    | Some(value) when testFn(value) => option
+    | _ => None
+    }
+  };
+
+  /**
+filterDrop(testFn, option)
+
+drops the value and returns None if $1 is true when called with $2's value; otherwise, returns $2 unchanged
+   */
+  let filterDrop = (testFn, option) => {
+    switch (option) {
+    | Some(value) when testFn(value) => option
+    | _ => None
+    }
+  };
+
   /**
 map(fn, option)
 
@@ -100,7 +124,7 @@ changes value of an option according to $1 if all inputs are Some value
     | _ => None
     }
   };
-  
+
   /**
 map2(fn, option1, option2)
 
@@ -113,7 +137,7 @@ changes value of an option according to $1 if all inputs are Some value
     | _ => None
     }
   };
-  
+
   /**
 map3(fn, option1, option2, option3)
 
@@ -126,7 +150,7 @@ changes value of an option according to $1 if all inputs are Some value
     | _ => None
     }
   };
-  
+
   /**
 map4(fn, option1, option2, option3, option4)
 
@@ -139,7 +163,7 @@ changes value of an option according to $1 if all inputs are Some value
     | _ => None
     }
   };
-  
+
   /**
 map5(fn, option1, option2, option3, option4, option5)
 
@@ -152,6 +176,5 @@ changes value of an option according to $1 if all inputs are Some value
     | _ => None
     }
   };
-  
-};
 
+};

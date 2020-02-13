@@ -59,4 +59,29 @@ open Components;
       )
     }}
   />
+  <X
+    n=5
+    make={i => {
+      let iStr = i === 1 ? "" : string_of_int(i);
+      let iNextStr = string_of_int(i + 1);
+      let name = "map" ++ iStr;
+      let fnArgArgs = Loop.loopS(1, i, s => "$" ++ s);
+      let fnArgArgs = Caml.String.concat(", ", fnArgArgs);
+      let fnArg = "(" ++ fnArgArgs ++ ") => " ++ "$" ++ iNextStr;
+      let optionArgs = Loop.loopS(1, i, s => "t($" ++ s ++ ")");
+      let optionNames = Loop.loopS(1, i, s => "option" ++ s);
+      let args = [fnArg, ...optionArgs];
+      let return = "t($" ++ iNextStr ++ ")";
+      let argNames = ["fn", ...optionNames];
+
+      <F
+        name
+        args
+        return
+        argNames
+        desc="changes value of an option according to $1 if all inputs are Some value"
+        body={({arg}) => {["None"]}}
+      />;
+    }}
+  />
 </M>;

@@ -35,7 +35,10 @@ let m = (m: m): list(string) => {
   let mUtils: mUtils = {moduleName: () => m.name};
   let moduleOpen = ["module " ++ m.name ++ " = {"];
   let moduleInner =
-    m.children |> Caml.List.map(child => child(mUtils)) |> Caml.List.flatten;
+    m.children
+    |> Caml.List.flatten
+    |> Caml.List.map(child => child(mUtils))
+    |> Caml.List.flatten;
   let moduleClose = ["};", ""];
   moduleOpen @ indent(moduleInner) @ moduleClose;
 };

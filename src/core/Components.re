@@ -1,5 +1,21 @@
 open Types;
 
+module X = {
+  let createElement =
+      (
+        ~first=1,
+        ~increment=1,
+        ~n: int,
+        ~make: int => mChild,
+        ~children: list(unit),
+        _,
+      )
+      : mChild => {
+    let result = Loop.loop(~increment, first, n, make);
+    Caml.List.flatten(result);
+  };
+};
+
 module F = {
   let createElement =
       (
@@ -16,11 +32,11 @@ module F = {
         ~desc: string,
         ~seeAlso: list(string)=[],
         ~examples: list(string)=[],
-        ~body: Types.fUtils => list(string),
+        ~body: fUtils => list(string),
         ~children: list(unit),
         _,
       )
-      : Types.mChild => {
+      : mChild => {
     let render = _mUtils => {
       let argArray = Caml.Array.of_list(argNames);
       let fUtils = {arg: x => argArray[x - 1]};
@@ -37,6 +53,6 @@ module F = {
       let bindingClose = ["};"];
       [""] @ doc @ bindingOpen @ body @ bindingClose @ [""];
     };
-    render;
+    [render];
   };
 };

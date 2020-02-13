@@ -64,5 +64,40 @@ getExn(option) returns the value contained within $1 if it exists; otherwise, ra
     }
   };
   
+  /**
+map(fn, option1) changes value of an option according to $1 if all inputs are Some value
+   */
+  let map = (fn, option1) => {
+    None
+  };
+  
+  /**
+map2(fn, option1, option2) changes value of an option according to $1 if all inputs are Some value
+   */
+  let map2 = (fn, option1, option2) => {
+    None
+  };
+  
+  /**
+map3(fn, option1, option2, option3) changes value of an option according to $1 if all inputs are Some value
+   */
+  let map3 = (fn, option1, option2, option3) => {
+    None
+  };
+  
+  /**
+map4(fn, option1, option2, option3, option4) changes value of an option according to $1 if all inputs are Some value
+   */
+  let map4 = (fn, option1, option2, option3, option4) => {
+    None
+  };
+  
+  /**
+map5(fn, option1, option2, option3, option4, option5) changes value of an option according to $1 if all inputs are Some value
+   */
+  let map5 = (fn, option1, option2, option3, option4, option5) => {
+    None
+  };
+  
 };
 

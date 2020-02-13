@@ -1,5 +1,7 @@
 open Types;
 
+let commas = String.concat(", ");
+
 let indent = lines => {
   let inComment = ref(false);
   let lines =

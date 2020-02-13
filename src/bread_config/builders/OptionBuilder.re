@@ -62,17 +62,28 @@ open Components;
   <X
     n=5
     make={i => {
-      let iStr = i === 1 ? "" : string_of_int(i);
+      let iStr = string_of_int(i);
       let iNextStr = string_of_int(i + 1);
-      let name = "map" ++ iStr;
-      let fnArgArgs = Loop.loopS(1, i, s => "$" ++ s);
-      let fnArgArgs = Caml.String.concat(", ", fnArgArgs);
-      let fnArg = "(" ++ fnArgArgs ++ ") => " ++ "$" ++ iNextStr;
-      let optionArgs = Loop.loopS(1, i, s => "t($" ++ s ++ ")");
-      let optionNames = Loop.loopS(1, i, s => "option" ++ s);
-      let args = [fnArg, ...optionArgs];
+
+      let name =
+        switch (i) {
+        | 1 => "map"
+        | _ => "map" ++ iStr
+        };
+
+      let types = Loop.loopS(1, i, s => "$" ++ s);
+      let tTypes = List.map(t => "t(" ++ t ++ ")", types);
+      let args =
+        {let fn = "(" ++ Render.commas(types) ++ ") => $" ++ iNextStr;
+         [fn, ...tTypes]};
       let return = "t($" ++ iNextStr ++ ")";
-      let argNames = ["fn", ...optionNames];
+      let argNames =
+        {let optionNames =
+           switch (i) {
+           | 1 => ["option"]
+           | _ => Loop.loopS(1, i, s => "option" ++ s)
+           };
+         ["fn", ...optionNames]};
 
       <F
         name
@@ -80,7 +91,17 @@ open Components;
         return
         argNames
         desc="changes value of an option according to $1 if all inputs are Some value"
-        body={({arg}) => {["None"]}}
+        body={({arg}) => {
+          let options = Loop.loop(1, i, i => arg(i + 1));
+          let allSome = List.map(o => "Some(" ++ o ++ ")", options);
+          [
+            "switch (" ++ Render.commas(options) ++ ") {",
+            "| (" ++ Render.commas(allSome) ++ ") =>",
+            "  Some(" ++ arg(1) ++ "(" ++ Render.commas(options) ++ "))",
+            "| _ => None",
+            "}",
+          ];
+        }}
       />;
     }}
   />

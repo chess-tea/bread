@@ -13,14 +13,10 @@ describe("Example", ({test}) => {
   });
 
   test("3", ({expect}) => {
-    let actual = Bread.Option.map(x => x + 2, Some(40));
+    let actual = Bread.Option.get(-1, Some(42));
 
-    let actual =
-      switch (actual) {
-      | Some(x) => string_of_int(x)
-      | None => "None"
-      };
+    let expected = 42;
 
-    expect.string(actual).toMatchSnapshot();
+    expect.int(actual).toBe(expected);
   });
 });

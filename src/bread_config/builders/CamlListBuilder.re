@@ -1,7 +1,7 @@
 open Core;
 open Components;
 
-<M name="List">
+<M name="CamlList">
   <F
     name="isEmpty"
     args=["t($1)"]

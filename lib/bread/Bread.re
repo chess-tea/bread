@@ -8,7 +8,7 @@
  * @generated
  */;
 
-module List = {
+module CamlList = {
   
   /**
 isEmpty(list)

@@ -22,7 +22,7 @@ open Components;
     name="makeNone"
     args=["$1"]
     return="t($1)"
-    argNames=["value"]
+    argNames=["_value"]
     desc="ignores $1 and always returns None"
     body={({arg}) => {["None"]}}
   />

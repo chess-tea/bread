@@ -1,9 +1,19 @@
 /**
-optionSwitch(optionSwitch, optionMatch, some, none)
+optionSwitch(name, someName, some, none)
  */
-let optionSwitch = (optionSwitch, optionMatch, some, none) => [
-  "switch (" ++ optionSwitch ++ ") {",
-  "| Some(" ++ optionMatch ++ ") => " ++ some,
+let optionSwitch = (name, someName, some, none) => [
+  "switch (" ++ name ++ ") {",
+  "| Some(" ++ someName ++ ") => " ++ some,
   "| None => " ++ none,
+  "}",
+];
+
+/**
+resultSwitch(name, okName, ok, errorName, error)
+ */
+let resultSwitch = (name, okName, ok, errorName, error) => [
+  "switch (" ++ name ++ ") {",
+  "| Ok(" ++ okName ++ ") => " ++ ok,
+  "| Error(" ++ errorName ++ ") => " ++ error,
   "}",
 ];

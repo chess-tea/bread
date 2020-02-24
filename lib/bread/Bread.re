@@ -35,11 +35,11 @@ returns whether $1 is Some
   };
   
   /**
-makeNone(value)
+makeNone(_value)
 
 ignores $1 and always returns None
    */
-  let makeNone = (value) => {
+  let makeNone = (_value) => {
     None
   };
   
@@ -239,6 +239,34 @@ changes value of an option according to $1 if all inputs are Some value
     | (Some(option1), Some(option2), Some(option3), Some(option4), Some(option5)) =>
       fn(option1, option2, option3, option4, option5)
     | _ => None
+    }
+  };
+  
+};
+
+module Result = {
+  
+  /**
+isOk(result)
+
+returns whether $1 is Ok
+   */
+  let isOk = (result) => {
+    switch (result) {
+    | Ok(_) => true
+    | Error(_) => false
+    }
+  };
+  
+  /**
+isError(result)
+
+returns whether $1 is Error
+   */
+  let isError = (result) => {
+    switch (result) {
+    | Ok(_) => false
+    | Error(_) => true
     }
   };
   

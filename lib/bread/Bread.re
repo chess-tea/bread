@@ -8,6 +8,22 @@
  * @generated
  */;
 
+module List = {
+  
+  /**
+isEmpty(list)
+
+returns whether $1 is empty
+   */
+  let isEmpty = (list) => {
+    switch (list) {
+    | [] => true
+    | _ => false
+    }
+  };
+  
+};
+
 module Option = {
   
   /**

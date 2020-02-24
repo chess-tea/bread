@@ -45,6 +45,15 @@ let contents =
     " */;",
     "",
   ]
+  @ [
+    // TODO: Should move this to a builder rather than it being hard-coded.
+    "module Caml = {",
+    "  module Array = Array;",
+    "  module List = List;",
+    "  module String = String;",
+    "};",
+    "",
+  ]
   @ contents;
 
 let removeDuplicateEmptyLines = lines => {

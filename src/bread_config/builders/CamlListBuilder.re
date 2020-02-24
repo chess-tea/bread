@@ -11,7 +11,7 @@ open Components;
     body={({arg}) => {
       [
         // not-one-line
-        "switch (list) {",
+        "switch (" ++ arg(1) ++ ") {",
         "| [] => true",
         "| _ => false",
         "}",

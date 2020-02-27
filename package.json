@@ -4,13 +4,13 @@
   "description": "Data Structures and Algorithms designed for Reason",
   "license": "MIT",
   "esy": {
-    "build": "refmterr dune build --profile=release",
+    "build": "dune build --profile=release",
     "install": [
       "esy-installer bread.install"
     ]
   },
   "dependencies": {
-    "@opam/dune": "1.11.4",
+    "@opam/dune": "^1.11.4",
     "@reason-native/rely": "^3.1.0",
     "@reason-native/fp": "facebookexperimental/reason-native:fp.json#d08d115cc7f08137f4e2fe5e7393d655a655a23e",
     "@reason-native/fs": "facebookexperimental/reason-native:fs.json#d08d115cc7f08137f4e2fe5e7393d655a655a23e",

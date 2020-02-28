@@ -14,7 +14,7 @@
     "@reason-native/rely": "^3.1.0",
     "@reason-native/fp": "facebookexperimental/reason-native:fp.json#d08d115cc7f08137f4e2fe5e7393d655a655a23e",
     "@reason-native/fs": "facebookexperimental/reason-native:fs.json#d08d115cc7f08137f4e2fe5e7393d655a655a23e",
-    "ocaml": "~4.7.0"
+    "ocaml": "^4.7.0"
   },
   "resolutions": {
     "@reason-native/fp": "facebookexperimental/reason-native:fp.json#d08d115cc7f08137f4e2fe5e7393d655a655a23e"
@@ -25,7 +25,7 @@
     "gen": "./scripts/gen"
   },
   "devDependencies": {
-    "ocaml": "~4.7.0",
+    "ocaml": "^4.7.0",
     "@opam/merlin": "*"
   }
 }

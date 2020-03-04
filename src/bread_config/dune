@@ -1,7 +1,7 @@
 (library
   (name BreadConfig)
-  (ocamlopt_flags -linkall -g -w -27)
-  (ocamlc_flags -w -27)
+  (ocamlopt_flags -linkall -g -w -9-27)
+  (ocamlc_flags -w -9-27)
   (wrapped false)
   (libraries
     Core

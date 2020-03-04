@@ -1,6 +1,7 @@
 (library
   (name Tests)
-  (ocamlopt_flags -linkall -g)
+  (ocamlopt_flags -linkall -g -w -9-27)
+  (ocamlc_flags -w -9-27)
   (libraries
     Bread
     BreadConfig
@@ -11,7 +12,6 @@
 )
 (executable
   (name TestExe)
-  (public_name TestExe)
   (libraries Tests)
   (modules TestExe)
 )

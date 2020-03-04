@@ -5,14 +5,17 @@
   "license": "MIT",
   "esy": {
     "build": "dune build -p #{self.name}",
-    "buildDev": "refmterr dune build ./src/bread_gen/BreadGen.exe",
+    "buildDev": [
+      "refmterr dune build ./src/bread_gen/BreadGen.exe",
+      "refmterr dune build ./tests/TestExe.exe"
+    ],
     "install": [
       "esy-installer bread.install"
     ]
   },
   "scripts": {
     "format": "./scripts/format",
-    "test": "esy x TestExe --onlyPrintDetailsForFailedSuites",
+    "test": "esy #{self.target_dir}/default/tests/TestExe.exe --onlyPrintDetailsForFailedSuites",
     "gen": "esy #{self.target_dir}/default/src/bread_gen/BreadGen.exe #{self.root}/lib/bread/"
   },
   "dependencies": {

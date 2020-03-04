@@ -100,7 +100,7 @@ open Components;
     }}
   />
   <X
-    n=5
+    n=7
     make={i => {
       let iStr = string_of_int(i);
       let iNextStr = string_of_int(i + 1);
@@ -146,7 +146,7 @@ open Components;
     }}
   />
   <X
-    n=5
+    n=7
     make={i => {
       let iStr = string_of_int(i);
       let iNextStr = string_of_int(i + 1);

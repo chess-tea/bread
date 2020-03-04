@@ -1,5 +1,7 @@
 let test = 42;
 
+print_endline("Hello World");
+
 let args = Sys.argv;
 
 if (Array.length(args) < 2) {

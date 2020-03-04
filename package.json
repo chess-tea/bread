@@ -4,27 +4,31 @@
   "description": "Data Structures and Algorithms designed for Reason",
   "license": "MIT",
   "esy": {
-    "build": "dune build --profile=release",
+    "build": "dune build -p #{self.name}",
+    "buildDev": "refmterr dune build ./src/bread_gen/BreadGen.exe",
     "install": [
       "esy-installer bread.install"
     ]
   },
-  "dependencies": {
-    "ocaml": "^4.08.0"
-  },
-  "resolutions": {
-    "@reason-native/fp": "facebookexperimental/reason-native:fp.json#d08d115"
-  },
   "scripts": {
     "format": "./scripts/format",
     "test": "esy x TestExe --onlyPrintDetailsForFailedSuites",
-    "gen": "./scripts/gen"
+    "gen": "esy #{self.target_dir}/default/src/bread_gen/BreadGen.exe #{self.root}/lib/bread/"
+  },
+  "dependencies": {
+    "ocaml": "^4.08.0",
+    "@opam/dune": "^1.11.4",
+    "@esy-ocaml/reason": "< 4.0.0"
   },
   "devDependencies": {
+    "ocaml": "<= 4.08.0",
     "@reason-native/rely": "^3.1.0",
-    "@reason-native/fp": "facebookexperimental/reason-native:fp.json#d08d115",
-    "@reason-native/fs": "facebookexperimental/reason-native:fs.json#d08d115",
-    "@opam/merlin": "*",
-    "@opam/dune": "^1.11.4"
+    "@reason-native/fp": "*",
+    "@reason-native/fs": "*",
+    "refmterr": "*",
+    "@opam/merlin": "*"
+  },
+  "resolutions": {
+    "@reason-native/fp": "facebookexperimental/reason-native:fp.json#d08d115"
   }
 }

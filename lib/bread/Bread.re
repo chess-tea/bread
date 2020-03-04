@@ -213,6 +213,32 @@ changes value of an option according to $1 if all inputs are Some value
   };
   
   /**
+map6(fn, option1, option2, option3, option4, option5, option6)
+
+changes value of an option according to $1 if all inputs are Some value
+   */
+  let map6 = (fn, option1, option2, option3, option4, option5, option6) => {
+    switch (option1, option2, option3, option4, option5, option6) {
+    | (Some(option1), Some(option2), Some(option3), Some(option4), Some(option5), Some(option6)) =>
+      Some(fn(option1, option2, option3, option4, option5, option6))
+    | _ => None
+    }
+  };
+  
+  /**
+map7(fn, option1, option2, option3, option4, option5, option6, option7)
+
+changes value of an option according to $1 if all inputs are Some value
+   */
+  let map7 = (fn, option1, option2, option3, option4, option5, option6, option7) => {
+    switch (option1, option2, option3, option4, option5, option6, option7) {
+    | (Some(option1), Some(option2), Some(option3), Some(option4), Some(option5), Some(option6), Some(option7)) =>
+      Some(fn(option1, option2, option3, option4, option5, option6, option7))
+    | _ => None
+    }
+  };
+  
+  /**
 flatMap(fn, option)
 
 changes value of an option according to $1 if all inputs are Some value
@@ -273,6 +299,32 @@ changes value of an option according to $1 if all inputs are Some value
     switch (option1, option2, option3, option4, option5) {
     | (Some(option1), Some(option2), Some(option3), Some(option4), Some(option5)) =>
       fn(option1, option2, option3, option4, option5)
+    | _ => None
+    }
+  };
+  
+  /**
+flatMap6(fn, option1, option2, option3, option4, option5, option6)
+
+changes value of an option according to $1 if all inputs are Some value
+   */
+  let flatMap6 = (fn, option1, option2, option3, option4, option5, option6) => {
+    switch (option1, option2, option3, option4, option5, option6) {
+    | (Some(option1), Some(option2), Some(option3), Some(option4), Some(option5), Some(option6)) =>
+      fn(option1, option2, option3, option4, option5, option6)
+    | _ => None
+    }
+  };
+  
+  /**
+flatMap7(fn, option1, option2, option3, option4, option5, option6, option7)
+
+changes value of an option according to $1 if all inputs are Some value
+   */
+  let flatMap7 = (fn, option1, option2, option3, option4, option5, option6, option7) => {
+    switch (option1, option2, option3, option4, option5, option6, option7) {
+    | (Some(option1), Some(option2), Some(option3), Some(option4), Some(option5), Some(option6), Some(option7)) =>
+      fn(option1, option2, option3, option4, option5, option6, option7)
     | _ => None
     }
   };

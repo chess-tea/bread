@@ -1,5 +1,5 @@
 (library
-  (public_name Bread)
+  (public_name bread)
   (name Bread)
   (libraries)
 )

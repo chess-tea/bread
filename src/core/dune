@@ -1,5 +1,7 @@
 (library
   (name Core)
+  (ocamlc_flags -w -27)
+  (ocamlopt_flags -w -27)
   (libraries
     fp
     fs.lib

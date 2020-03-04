@@ -1,6 +1,7 @@
 (executable
   (name BreadGen)
-  (public_name BreadGen)
+  (ocamlopt_flags -w -27)
+  (ocamlc_flags -w -27)
   (libraries
     BreadConfig
     fp

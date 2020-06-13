@@ -1,8 +1,8 @@
 open Core;
 open Components;
 
-<M name="Option">
-  <F
+<ModuleDef name="Option">
+  <Function
     name="isNone"
     args=["t($1)"]
     return="bool"
@@ -10,7 +10,7 @@ open Components;
     desc="returns whether $1 is None"
     body={({arg}) => {Inline.optionSwitch(arg(1), "_", "false", "true")}}
   />
-  <F
+  <Function
     name="isSome"
     args=["t($1)"]
     return="bool"
@@ -18,7 +18,7 @@ open Components;
     desc="returns whether $1 is Some"
     body={({arg}) => {Inline.optionSwitch(arg(1), "_", "true", "false")}}
   />
-  <F
+  <Function
     name="makeNone"
     args=["$1"]
     return="t($1)"
@@ -26,7 +26,7 @@ open Components;
     desc="ignores $1 and always returns None"
     body={({arg}) => {["None"]}}
   />
-  <F
+  <Function
     name="makeSome"
     args=["$1"]
     return="t($1)"
@@ -34,7 +34,7 @@ open Components;
     desc="returns Some($1)"
     body={({arg}) => {["Some(" ++ arg(1) ++ ")"]}}
   />
-  <F
+  <Function
     name="get"
     args=["$1", "t($1)"]
     return="$1"
@@ -44,7 +44,7 @@ open Components;
       Inline.optionSwitch(arg(2), arg(2), arg(2), arg(1))
     }}
   />
-  <F
+  <Function
     name="getExn"
     args=["t($1)"]
     return="$1"
@@ -59,7 +59,7 @@ open Components;
       )
     }}
   />
-  <F
+  <Function
     name="getLazy"
     args=["unit => $1", "t($1)"]
     return="$1"
@@ -69,7 +69,7 @@ open Components;
       Inline.optionSwitch(arg(2), arg(2), arg(2), arg(1) ++ "()")
     }}
   />
-  <F
+  <Function
     name="filterKeep"
     args=["$1 => bool", "t($1)"]
     return="t($1)"
@@ -84,7 +84,7 @@ open Components;
       ]
     }}
   />
-  <F
+  <Function
     name="filterDrop"
     args=["$1 => bool", "t($1)"]
     return="t($1)"
@@ -99,7 +99,7 @@ open Components;
       ]
     }}
   />
-  <F
+  <Function
     name="toResult"
     args=["$1", "t($2)"]
     return="result($1, $2)"
@@ -112,7 +112,7 @@ open Components;
       "}",
     ]}}
   />
-  <F
+  <Function
     name="fromResult"
     args=["result($1, $2)"]
     return="t($1)"
@@ -125,7 +125,7 @@ open Components;
       "}",
     ]}}
   />
-  <X
+  <Repeat
     n=7
     make={i => {
       let iStr = string_of_int(i);
@@ -151,7 +151,7 @@ open Components;
            };
          ["fn", ...optionNames]};
 
-      <F
+      <Function
         name
         args
         return
@@ -171,7 +171,7 @@ open Components;
       />;
     }}
   />
-  <X
+  <Repeat
     n=7
     make={i => {
       let iStr = string_of_int(i);
@@ -198,7 +198,7 @@ open Components;
            };
          ["fn", ...optionNames]};
 
-      <F
+      <Function
         name
         args
         return
@@ -218,4 +218,4 @@ open Components;
       />;
     }}
   />
-</M>;
+</ModuleDef>;

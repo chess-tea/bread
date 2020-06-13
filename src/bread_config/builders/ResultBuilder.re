@@ -1,8 +1,8 @@
 open Core;
 open Components;
 
-<M name="Result">
-  <F
+<ModuleDef name="Result">
+  <Function
     name="isOk"
     args=["t($1, $2)"]
     return="bool"
@@ -12,7 +12,7 @@ open Components;
       Inline.resultSwitch(arg(1), "_", "true", "_", "false")
     }}
   />
-  <F
+  <Function
     name="isError"
     args=["t($1, $2)"]
     return="bool"
@@ -22,4 +22,4 @@ open Components;
       Inline.resultSwitch(arg(1), "_", "false", "_", "true")
     }}
   />
-</M>;
+</ModuleDef>;

@@ -1,8 +1,8 @@
 open Core;
 open Components;
 
-<M name="CamlList">
-  <F
+<ModuleDef name="CamlList">
+  <Function
     name="isEmpty"
     args=["t($1)"]
     return="bool"
@@ -18,4 +18,4 @@ open Components;
       ]
     }}
   />
-</M>;
+</ModuleDef>;

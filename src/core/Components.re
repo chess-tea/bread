@@ -1,6 +1,6 @@
 open Types;
 
-module X = {
+module Repeat = {
   let createElement =
       (
         ~first=1,
@@ -16,7 +16,7 @@ module X = {
   };
 };
 
-module F = {
+module Function = {
   let createElement =
       (
         ~name: string,

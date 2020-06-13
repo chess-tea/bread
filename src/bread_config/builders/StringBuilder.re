@@ -2,6 +2,7 @@ open Core;
 open Components;
 
 <ModuleDef name="String">
+  <Let name="length" right="Caml.String.length" />
   <Function
     name="slice"
     args=["int", "int", "t"]
@@ -34,4 +35,5 @@ open Components;
       "slice($1, Caml.String.length($2), $2);",
     ]}}
   />
+  <Template name="string/indexOfInternal" />
 </ModuleDef>;

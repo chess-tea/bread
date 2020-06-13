@@ -33,8 +33,11 @@ let indent = lines => {
   lines;
 };
 
-let m = (m: m): list(string) => {
-  let mUtils: mUtils = {moduleName: () => m.name};
+let m = (~getTemplate: string => list(string), m: m): list(string) => {
+  let mUtils: mUtils = {
+    moduleName: () => m.name,
+    template: getTemplate,
+  };
   let moduleOpen = ["module " ++ m.name ++ " = {"];
   let moduleInner =
     m.children

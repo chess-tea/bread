@@ -77,3 +77,39 @@ module Raw = {
     [render];
   };
 };
+
+module Let = {
+  let createElement =
+      (
+        ~name: string,
+        ~right: string,
+        ~t: option(string)=?,
+        ~children: list(unit),
+        _,
+      )
+      : mChild => {
+    let render = _mUtils => {
+      let t = switch (t) {
+      | Some(t) => ": " ++ t;
+      | None => ""
+      };
+      ["let " ++ name ++ t ++ " = " ++ right ++ ";"];
+    };
+    [render];
+  };
+};
+
+module Template = {
+  let createElement =
+      (
+        ~name: string,
+        ~children: list(unit),
+        _,
+      )
+      : mChild => {
+    let render = (utils: mUtils) => {
+      utils.template(name);
+    };
+    [render];
+  };
+};

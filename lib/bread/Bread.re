@@ -15,6 +15,7 @@ module Caml = {
 };
 
 module String = {
+  let length = Caml.String.length;
   
   /**
 slice(i, j, string)
@@ -46,6 +47,56 @@ returns a substring of string from index i to the end
     slice(i, Caml.String.length(string), string);
   };
   
+  /*
+   *  Returns the index of the first occurrence of string `needle` in string
+   *  `haystack`. If not found, returns -1.
+   *
+   *  An implementation of the Knuth-Morris-Pratt (KMP) algorithm.
+   */
+  let indexOfInternal = (needle, needleAt) => {
+    /* see Wikipedia pseudocode */
+    let needle_len = Caml.String.length(needle);
+    if (needle_len === 0) {
+      (_, _) => 0;
+    } else {
+      let table = Caml.Array.make(needle_len, 0);
+      table[0] = (-1);
+      let pos = ref(2)
+      and cnd = ref(0);
+      while (pos^ < needle_len) {
+        if (needleAt(pos^ - 1) === needleAt(cnd^)) {
+          table[pos^] = cnd^ + 1;
+          incr(pos);
+          incr(cnd);
+        } else if (cnd^ > 0) {
+          cnd := table[cnd^];
+        } else {
+          table[pos^] = 0;
+          incr(pos);
+        };
+      };
+      (haystack, haystackAt) => {
+        let len = Caml.String.length(haystack);
+        let p = ref(0);
+        let q = ref(0);
+        while (p^ < len && q^ < needle_len) {
+          if (haystackAt(p^) === needleAt(q^)) {
+            incr(p);
+            incr(q);
+          } else if (q^ === 0) {
+            incr(p);
+          } else {
+            q := table[q^];
+          };
+        };
+        if (q^ >= needle_len) {
+          p^ - needle_len;
+        } else {
+          (-1);
+        };
+      };
+    };
+  };
 };
 
 module Result = {

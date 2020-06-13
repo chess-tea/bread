@@ -16,7 +16,7 @@
   "scripts": {
     "format": "./scripts/format",
     "test": "esy #{self.target_dir}/default/tests/TestExe.exe --onlyPrintDetailsForFailedSuites",
-    "gen": "esy #{self.target_dir}/default/src/bread_gen/BreadGen.exe #{self.root}/lib/bread/"
+    "gen": "esy #{self.target_dir}/default/src/bread_gen/BreadGen.exe #{self.root}/lib/bread/ #{self.root}/templates/"
   },
   "dependencies": {
     "ocaml": "^4.08.0",

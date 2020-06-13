@@ -2,20 +2,49 @@ let args = Sys.argv;
 
 if (Array.length(args) < 2) {
   failwith(
-    "Expected exactly 1 argument to BreadGen that is the output directory. Received no arguments.",
+    "Expected exactly 2 arguments to BreadGen. The output and templates directory. Received too few arguments.",
   );
 };
 
-if (Array.length(args) > 2) {
+if (Array.length(args) > 3) {
   failwith(
-    "Expected exactly 1 argument to BreadGen that is the output directory. Received too many arguments.",
+    "Expected exactly 2 arguments to BreadGen. The output and templates directory. Received too many arguments.",
   );
 };
 
 let outputDir = args[1];
+let templatesDir = args[2];
 
 print_endline("Installing in:");
 print_endline("  - " ++ outputDir);
+print_endline("Loading templates from:");
+print_endline("  - " ++ templatesDir);
+
+let templatesDir = Fp.absoluteExn(templatesDir);
+module StringMap = Map.Make(String);
+let templateMap = ref(StringMap.empty);
+Fs.traverseFileSystemFromPath(
+  ~onNode=(result, cont) => {
+    switch (result) {
+    | File(path, _stat) =>
+      let pathString = Fp.toString(path);
+      let contents = Fs.readTextExn(path);
+      templateMap := StringMap.add(pathString, contents, templateMap^);
+    | _ => cont();
+    };
+  },
+  templatesDir
+);
+let getTemplate = (name) => {
+  let path = Fp.At.(templatesDir / name);
+  let pathString = Fp.toString(path);
+  if (!StringMap.mem(pathString, templateMap^)) {
+    print_endline("!!! Error: Unknown template: " ++ pathString);
+    failwith("Unknown Template");
+  };
+  StringMap.find(pathString, templateMap^);
+};
+
 print_endline("Building modules:");
 
 let root = Fp.absoluteExn(outputDir);
@@ -27,7 +56,7 @@ let contents =
   |> List.rev
   |> List.map((m: Core.Types.m) => {
        print_endline("  - " ++ m.name);
-       let contents = Core.Render.m(m);
+       let contents = Core.Render.m(~getTemplate, m);
        contents;
      })
   |> List.flatten;

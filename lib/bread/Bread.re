@@ -14,30 +14,29 @@ module Caml = {
   module String = String;
 };
 
-module CamlArray = {
+module Result = {
   
   /**
-isEmpty(array)
+isOk(result)
 
-returns whether $1 is empty
+returns whether $1 is Ok
    */
-  let isEmpty = (array) => {
-    Caml.Array.length(array) === 0
+  let isOk = (result) => {
+    switch (result) {
+    | Ok(_) => true
+    | Error(_) => false
+    }
   };
   
-};
-
-module CamlList = {
-  
   /**
-isEmpty(list)
+isError(result)
 
-returns whether $1 is empty
+returns whether $1 is Error
    */
-  let isEmpty = (list) => {
-    switch (list) {
-    | [] => true
-    | _ => false
+  let isError = (result) => {
+    switch (result) {
+    | Ok(_) => false
+    | Error(_) => true
     }
   };
   
@@ -355,30 +354,31 @@ changes value of an option according to $1 if all inputs are Some value
   
 };
 
-module Result = {
+module CamlList = {
   
   /**
-isOk(result)
+isEmpty(list)
 
-returns whether $1 is Ok
+returns whether $1 is empty
    */
-  let isOk = (result) => {
-    switch (result) {
-    | Ok(_) => true
-    | Error(_) => false
+  let isEmpty = (list) => {
+    switch (list) {
+    | [] => true
+    | _ => false
     }
   };
   
-  /**
-isError(result)
+};
 
-returns whether $1 is Error
+module CamlArray = {
+  
+  /**
+isEmpty(array)
+
+returns whether $1 is empty
    */
-  let isError = (result) => {
-    switch (result) {
-    | Ok(_) => false
-    | Error(_) => true
-    }
+  let isEmpty = (array) => {
+    Caml.Array.length(array) === 0
   };
   
 };

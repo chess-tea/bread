@@ -58,3 +58,18 @@ module Function = {
     [render];
   };
 };
+
+module Raw = {
+  let createElement =
+      (
+        ~raw: string,
+        ~children: list(unit),
+        _,
+      )
+      : mChild => {
+    let render = _mUtils => {
+      [raw]
+    };
+    [render];
+  };
+};

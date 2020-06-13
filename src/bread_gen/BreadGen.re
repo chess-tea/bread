@@ -23,6 +23,8 @@ let ms = Registry.Modules.get();
 
 let contents =
   Registry.Modules.get()
+  |> List.sort((m1: Core.Types.m, m2: Core.Types.m) => compare(m1.priority, m2.priority))
+  |> List.rev
   |> List.map((m: Core.Types.m) => {
        print_endline("  - " ++ m.name);
        let contents = Core.Render.m(m);
@@ -41,15 +43,6 @@ let contents =
     " *",
     " * @generated",
     " */;",
-    "",
-  ]
-  @ [
-    // TODO: Should move this to a builder rather than it being hard-coded.
-    "module Caml = {",
-    "  module Array = Array;",
-    "  module List = List;",
-    "  module String = String;",
-    "};",
     "",
   ]
   @ contents;

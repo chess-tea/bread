@@ -148,6 +148,30 @@ drops the value and returns None if $1 is true when called with $2's value; othe
   };
   
   /**
+toResult(noneError, option)
+
+converts $2 to a result. Returns Ok(value) if $2 is Some(value), and Error($1) otherwise
+   */
+  let toResult = (noneError, option) => {
+    switch (option) {
+    | Some(value) => Ok(value)
+    | None => Error(noneError)
+    }
+  };
+  
+  /**
+fromResult(result)
+
+converts $1 to an option. Returns Some(value) if $1 is Ok(value), and None otherwise
+   */
+  let fromResult = (result) => {
+    switch (result) {
+    | Ok(value) => Some(value)
+    | Error(_) => None
+    }
+  };
+  
+  /**
 map(fn, option)
 
 changes value of an option according to $1 if all inputs are Some value

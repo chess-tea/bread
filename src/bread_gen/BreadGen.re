@@ -1,7 +1,3 @@
-let test = 42;
-
-print_endline("Hello World");
-
 let args = Sys.argv;
 
 if (Array.length(args) < 2) {
@@ -20,7 +16,7 @@ let outputDir = args[1];
 
 print_endline("Installing in:");
 print_endline("  - " ++ outputDir);
-print_endline("Rendering:");
+print_endline("Building modules:");
 
 let root = Fp.absoluteExn(outputDir);
 let ms = Registry.Modules.get();

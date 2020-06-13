@@ -99,6 +99,32 @@ open Components;
       ]
     }}
   />
+  <F
+    name="toResult"
+    args=["$1", "t($2)"]
+    return="result($1, $2)"
+    argNames=["noneError", "option"]
+    desc="converts $2 to a result. Returns Ok(value) if $2 is Some(value), and Error($1) otherwise"
+    body={({arg}) => {[
+      "switch (" ++ arg(2) ++ ") {",
+      "| Some(value) => Ok(value)",
+      "| None => Error(" ++ arg(1) ++ ")",
+      "}",
+    ]}}
+  />
+  <F
+    name="fromResult"
+    args=["result($1, $2)"]
+    return="t($1)"
+    argNames=["result"]
+    desc="converts $1 to an option. Returns Some(value) if $1 is Ok(value), and None otherwise"
+    body={({arg}) => {[
+      "switch (" ++ arg(1) ++ ") {",
+      "| Ok(value) => Some(value)",
+      "| Error(_) => None",
+      "}",
+    ]}}
+  />
   <X
     n=7
     make={i => {

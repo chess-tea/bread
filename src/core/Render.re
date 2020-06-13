@@ -22,7 +22,7 @@ let indent = lines => {
             "  " ++ line;
           };
 
-        if (n >= 2 && trimmed.[0] === '/' && trimmed.[1] === '*') {
+        if (n >= 3 && trimmed.[0] === '/' && trimmed.[1] === '*' && trimmed.[2] === '*') {
           inComment := true;
         };
 

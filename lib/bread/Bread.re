@@ -14,6 +14,40 @@ module Caml = {
   module String = String;
 };
 
+module String = {
+  
+  /**
+slice(i, j, string)
+
+returns a substring of $3 between given indices $1 and $2
+   */
+  let slice = (i, j, string) => {
+    let n = Caml.String.length(string)
+    /* Resolve indices to final positions. */
+    let i = i < 0 ? i + n : i;
+    let i = i < 0 ? 0 : i;
+    let i = i > n ? n : i;
+    let j = j < 0 ? j + n : j;
+    let j = j < 0 ? 0 : j;
+    let j = j > n ? n : j;
+    if (i >= j) {
+      "";
+    } else {
+      Caml.String.sub(string, i, j - i);
+    };
+  };
+  
+  /**
+sliceToEnd(i, string)
+
+returns a substring of $2 from index $1 to the end
+   */
+  let sliceToEnd = (i, string) => {
+    slice(i, Caml.String.length(string), string);
+  };
+  
+};
+
 module Result = {
   
   /**

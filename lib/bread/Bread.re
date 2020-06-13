@@ -97,6 +97,59 @@ returns a substring of string from index i to the end
       };
     };
   };
+  
+  let indexOfInt = needle => {
+    let needleAt = i => needle.[i];
+    haystack => {
+      let haystackAt = i => haystack.[i];
+      let index = indexOfInternal(needle, needleAt, haystack, haystackAt);
+      index;
+    };
+  };
+  
+  let indexOf = needle => {
+    let indexOfIntPartial = indexOfInt(needle);
+    haystack => {
+      let result = indexOfIntPartial(haystack);
+      if (result === (-1)) {
+        None;
+      } else {
+        Some(result);
+      };
+    };
+  };
+  
+  let lastIndexOfInt = needle => {
+    let needleLen = Caml.String.length(needle);
+    /* This lets us simulate reversed strings without a memory allocation */
+    let needleAt = i => needle.[needleLen - 1 - i];
+    let indexOfInternalPartial = indexOfInternal(needle, needleAt);
+    haystack => {
+      let haystackLen = Caml.String.length(haystack);
+      let haystackAt = i => haystack.[haystackLen - 1 - i];
+      let index = indexOfInternalPartial(haystack, haystackAt);
+      /* We get a "reversed" index, so we have to un-reverse it at the end. */
+      index === (-1) ? index : haystackLen - needleLen - index;
+    };
+  };
+  
+  let lastIndexOf = needle => {
+    let lastIndexOfIntPartial = lastIndexOfInt(needle);
+    haystack => {
+      let result = lastIndexOfIntPartial(haystack);
+      if (result === (-1)) {
+        None;
+      } else {
+        Some(result);
+      };
+    };
+  };
+  
+  let contains = needle => {
+    let indexOfIntPartial = indexOfInt(needle);
+    haystack => indexOfIntPartial(haystack) !== (-1);
+  };
+  
 };
 
 module Result = {

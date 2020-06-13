@@ -1,0 +1,8 @@
+let indexOfInt = needle => {
+  let needleAt = i => needle.[i];
+  haystack => {
+    let haystackAt = i => haystack.[i];
+    let index = indexOfInternal(needle, needleAt, haystack, haystackAt);
+    index;
+  };
+};

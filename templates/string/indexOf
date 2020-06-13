@@ -1,0 +1,11 @@
+let indexOf = needle => {
+  let indexOfIntPartial = indexOfInt(needle);
+  haystack => {
+    let result = indexOfIntPartial(haystack);
+    if (result === (-1)) {
+      None;
+    } else {
+      Some(result);
+    };
+  };
+};

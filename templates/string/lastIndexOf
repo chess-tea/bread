@@ -1,0 +1,11 @@
+let lastIndexOf = needle => {
+  let lastIndexOfIntPartial = lastIndexOfInt(needle);
+  haystack => {
+    let result = lastIndexOfIntPartial(haystack);
+    if (result === (-1)) {
+      None;
+    } else {
+      Some(result);
+    };
+  };
+};

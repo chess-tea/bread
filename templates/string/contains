@@ -1,0 +1,4 @@
+let contains = needle => {
+  let indexOfIntPartial = indexOfInt(needle);
+  haystack => indexOfIntPartial(haystack) !== (-1);
+};

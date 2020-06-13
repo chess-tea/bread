@@ -36,4 +36,9 @@ open Components;
     ]}}
   />
   <Template name="string/indexOfInternal" />
+  <Template name="string/indexOfInt" />
+  <Template name="string/indexOf" />
+  <Template name="string/lastIndexOfInt" />
+  <Template name="string/lastIndexOf" />
+  <Template name="string/contains" />
 </ModuleDef>;

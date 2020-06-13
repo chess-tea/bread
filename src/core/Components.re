@@ -108,7 +108,7 @@ module Template = {
       )
       : mChild => {
     let render = (utils: mUtils) => {
-      utils.template(name);
+      [""] @ utils.template(name) @ [""];
     };
     [render];
   };

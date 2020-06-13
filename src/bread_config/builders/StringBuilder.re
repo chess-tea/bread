@@ -9,18 +9,18 @@ open Components;
     argNames=["i", "j", "string"]
     desc="returns a substring of $3 between given indices $1 and $2"
     body={({arg}) => {[
-      "let n = Caml.String.length(" ++ arg(3) ++ ")",
+      "let n = Caml.String.length($3)",
       "/* Resolve indices to final positions. */",
-      "let " ++ arg(1) ++ " = " ++ arg(1) ++ " < 0 ? " ++ arg(1) ++ " + n : " ++ arg(1) ++ ";",
-      "let " ++ arg(1) ++ " = " ++ arg(1) ++ " < 0 ? 0 : " ++ arg(1) ++ ";",
-      "let " ++ arg(1) ++ " = " ++ arg(1) ++ " > n ? n : " ++ arg(1) ++ ";",
-      "let " ++ arg(2) ++ " = " ++ arg(2) ++ " < 0 ? " ++ arg(2) ++ " + n : " ++ arg(2) ++ ";",
-      "let " ++ arg(2) ++ " = " ++ arg(2) ++ " < 0 ? 0 : " ++ arg(2) ++ ";",
-      "let " ++ arg(2) ++ " = " ++ arg(2) ++ " > n ? n : " ++ arg(2) ++ ";",
-      "if (" ++ arg(1) ++ " >= " ++ arg(2) ++ ") {",
+      "let $1 = $1 < 0 ? $1 + n : $1;",
+      "let $1 = $1 < 0 ? 0 : $1;",
+      "let $1 = $1 > n ? n : $1;",
+      "let $2 = $2 < 0 ? $2 + n : $2;",
+      "let $2 = $2 < 0 ? 0 : $2;",
+      "let $2 = $2 > n ? n : $2;",
+      "if ($1 >= $2) {",
       "  \"\";",
       "} else {",
-      "  Caml.String.sub(" ++ arg(3) ++ ", " ++ arg(1) ++ ", " ++ arg(2) ++ " - " ++ arg(1) ++ ");",
+      "  Caml.String.sub($3, $1, $2 - $1);",
       "};",
     ]}}
   />
@@ -31,7 +31,7 @@ open Components;
     argNames=["i", "string"]
     desc="returns a substring of $2 from index $1 to the end"
     body={({arg}) => {[
-      "slice(" ++ arg(1) ++ ", Caml.String.length(" ++ arg(2) ++ "), " ++ arg(2) ++ ");",
+      "slice($1, Caml.String.length($2), $2);",
     ]}}
   />
 </ModuleDef>;

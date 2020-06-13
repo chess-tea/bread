@@ -8,6 +8,6 @@ open Components;
     return="bool"
     argNames=["array"]
     desc="returns whether $1 is empty"
-    body={({arg}) => {["Caml.Array.length(" ++ arg(1) ++ ") === 0"]}}
+    body={({arg}) => {["Caml.Array.length($1) === 0"]}}
   />
 </ModuleDef>;

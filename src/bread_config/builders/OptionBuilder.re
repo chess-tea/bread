@@ -32,7 +32,7 @@ open Components;
     return="t($1)"
     argNames=["value"]
     desc="returns Some($1)"
-    body={({arg}) => {["Some(" ++ arg(1) ++ ")"]}}
+    body={({arg}) => {["Some($1)"]}}
   />
   <Function
     name="get"
@@ -77,8 +77,8 @@ open Components;
     desc="keeps the value and option unchanged if $1 is true when called with $2's value; otherwise, returns None"
     body={({arg}) => {
       [
-        "switch (" ++ arg(2) ++ ") {",
-        "| Some(value) when " ++ arg(1) ++ "(value) => " ++ arg(2),
+        "switch ($2) {",
+        "| Some(value) when $1(value) => $2",
         "| _ => None",
         "}",
       ]
@@ -92,8 +92,8 @@ open Components;
     desc="drops the value and returns None if $1 is true when called with $2's value; otherwise, returns $2 unchanged"
     body={({arg}) => {
       [
-        "switch (" ++ arg(2) ++ ") {",
-        "| Some(value) when " ++ arg(1) ++ "(value) => " ++ arg(2),
+        "switch ($2) {",
+        "| Some(value) when $1(value) => $2",
         "| _ => None",
         "}",
       ]
@@ -106,9 +106,9 @@ open Components;
     argNames=["noneError", "option"]
     desc="converts $2 to a result. Returns Ok(value) if $2 is Some(value), and Error($1) otherwise"
     body={({arg}) => {[
-      "switch (" ++ arg(2) ++ ") {",
+      "switch ($2) {",
       "| Some(value) => Ok(value)",
-      "| None => Error(" ++ arg(1) ++ ")",
+      "| None => Error($1)",
       "}",
     ]}}
   />
@@ -119,7 +119,7 @@ open Components;
     argNames=["result"]
     desc="converts $1 to an option. Returns Some(value) if $1 is Ok(value), and None otherwise"
     body={({arg}) => {[
-      "switch (" ++ arg(1) ++ ") {",
+      "switch ($1) {",
       "| Ok(value) => Some(value)",
       "| Error(_) => None",
       "}",
@@ -163,7 +163,7 @@ open Components;
           [
             "switch (" ++ Render.commas(options) ++ ") {",
             "| (" ++ Render.commas(allSome) ++ ") =>",
-            "  Some(" ++ arg(1) ++ "(" ++ Render.commas(options) ++ "))",
+            "  Some($1(" ++ Render.commas(options) ++ "))",
             "| _ => None",
             "}",
           ];
@@ -210,7 +210,7 @@ open Components;
           [
             "switch (" ++ Render.commas(options) ++ ") {",
             "| (" ++ Render.commas(allSome) ++ ") =>",
-            "  " ++ arg(1) ++ "(" ++ Render.commas(options) ++ ")",
+            "  $1(" ++ Render.commas(options) ++ ")",
             "| _ => None",
             "}",
           ];

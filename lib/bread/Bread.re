@@ -19,7 +19,7 @@ module String = {
   /**
 slice(i, j, string)
 
-returns a substring of $3 between given indices $1 and $2
+returns a substring of string between given indices i and j
    */
   let slice = (i, j, string) => {
     let n = Caml.String.length(string)
@@ -40,7 +40,7 @@ returns a substring of $3 between given indices $1 and $2
   /**
 sliceToEnd(i, string)
 
-returns a substring of $2 from index $1 to the end
+returns a substring of string from index i to the end
    */
   let sliceToEnd = (i, string) => {
     slice(i, Caml.String.length(string), string);
@@ -53,7 +53,7 @@ module Result = {
   /**
 isOk(result)
 
-returns whether $1 is Ok
+returns whether result is Ok
    */
   let isOk = (result) => {
     switch (result) {
@@ -65,7 +65,7 @@ returns whether $1 is Ok
   /**
 isError(result)
 
-returns whether $1 is Error
+returns whether result is Error
    */
   let isError = (result) => {
     switch (result) {
@@ -81,7 +81,7 @@ module Option = {
   /**
 isNone(option)
 
-returns whether $1 is None
+returns whether option is None
    */
   let isNone = (option) => {
     switch (option) {
@@ -93,7 +93,7 @@ returns whether $1 is None
   /**
 isSome(option)
 
-returns whether $1 is Some
+returns whether option is Some
    */
   let isSome = (option) => {
     switch (option) {
@@ -105,7 +105,7 @@ returns whether $1 is Some
   /**
 makeNone(_value)
 
-ignores $1 and always returns None
+ignores _value and always returns None
    */
   let makeNone = (_value) => {
     None
@@ -114,7 +114,7 @@ ignores $1 and always returns None
   /**
 makeSome(value)
 
-returns Some($1)
+returns Some(value)
    */
   let makeSome = (value) => {
     Some(value)
@@ -123,7 +123,7 @@ returns Some($1)
   /**
 get(default, option)
 
-returns the value contained within $2 if it exists; otherwise, returns $1
+returns the value contained within option if it exists; otherwise, returns default
    */
   let get = (default, option) => {
     switch (option) {
@@ -135,7 +135,7 @@ returns the value contained within $2 if it exists; otherwise, returns $1
   /**
 getExn(option)
 
-returns the value contained within $1 if it exists; otherwise, raises exception
+returns the value contained within option if it exists; otherwise, raises exception
    */
   let getExn = (option) => {
     switch (option) {
@@ -147,7 +147,7 @@ returns the value contained within $1 if it exists; otherwise, raises exception
   /**
 getLazy(defaultFn, option)
 
-returns the value contained within $2 if it exists; otherwise, returns the result of calling $1
+returns the value contained within option if it exists; otherwise, returns the result of calling defaultFn
    */
   let getLazy = (defaultFn, option) => {
     switch (option) {
@@ -159,7 +159,7 @@ returns the value contained within $2 if it exists; otherwise, returns the resul
   /**
 filterKeep(testFn, option)
 
-keeps the value and option unchanged if $1 is true when called with $2's value; otherwise, returns None
+keeps the value and option unchanged if testFn is true when called with option's value; otherwise, returns None
    */
   let filterKeep = (testFn, option) => {
     switch (option) {
@@ -171,7 +171,7 @@ keeps the value and option unchanged if $1 is true when called with $2's value; 
   /**
 filterDrop(testFn, option)
 
-drops the value and returns None if $1 is true when called with $2's value; otherwise, returns $2 unchanged
+drops the value and returns None if testFn is true when called with option's value; otherwise, returns option unchanged
    */
   let filterDrop = (testFn, option) => {
     switch (option) {
@@ -183,7 +183,7 @@ drops the value and returns None if $1 is true when called with $2's value; othe
   /**
 toResult(noneError, option)
 
-converts $2 to a result. Returns Ok(value) if $2 is Some(value), and Error($1) otherwise
+converts option to a result. Returns Ok(value) if option is Some(value), and Error(noneError) otherwise
    */
   let toResult = (noneError, option) => {
     switch (option) {
@@ -195,7 +195,7 @@ converts $2 to a result. Returns Ok(value) if $2 is Some(value), and Error($1) o
   /**
 fromResult(result)
 
-converts $1 to an option. Returns Some(value) if $1 is Ok(value), and None otherwise
+converts result to an option. Returns Some(value) if result is Ok(value), and None otherwise
    */
   let fromResult = (result) => {
     switch (result) {
@@ -207,7 +207,7 @@ converts $1 to an option. Returns Some(value) if $1 is Ok(value), and None other
   /**
 map(fn, option)
 
-changes value of an option according to $1 if all inputs are Some value
+changes value of an option according to fn if all inputs are Some value
    */
   let map = (fn, option) => {
     switch (option) {
@@ -220,7 +220,7 @@ changes value of an option according to $1 if all inputs are Some value
   /**
 map2(fn, option1, option2)
 
-changes value of an option according to $1 if all inputs are Some value
+changes value of an option according to fn if all inputs are Some value
    */
   let map2 = (fn, option1, option2) => {
     switch (option1, option2) {
@@ -233,7 +233,7 @@ changes value of an option according to $1 if all inputs are Some value
   /**
 map3(fn, option1, option2, option3)
 
-changes value of an option according to $1 if all inputs are Some value
+changes value of an option according to fn if all inputs are Some value
    */
   let map3 = (fn, option1, option2, option3) => {
     switch (option1, option2, option3) {
@@ -246,7 +246,7 @@ changes value of an option according to $1 if all inputs are Some value
   /**
 map4(fn, option1, option2, option3, option4)
 
-changes value of an option according to $1 if all inputs are Some value
+changes value of an option according to fn if all inputs are Some value
    */
   let map4 = (fn, option1, option2, option3, option4) => {
     switch (option1, option2, option3, option4) {
@@ -259,7 +259,7 @@ changes value of an option according to $1 if all inputs are Some value
   /**
 map5(fn, option1, option2, option3, option4, option5)
 
-changes value of an option according to $1 if all inputs are Some value
+changes value of an option according to fn if all inputs are Some value
    */
   let map5 = (fn, option1, option2, option3, option4, option5) => {
     switch (option1, option2, option3, option4, option5) {
@@ -272,7 +272,7 @@ changes value of an option according to $1 if all inputs are Some value
   /**
 map6(fn, option1, option2, option3, option4, option5, option6)
 
-changes value of an option according to $1 if all inputs are Some value
+changes value of an option according to fn if all inputs are Some value
    */
   let map6 = (fn, option1, option2, option3, option4, option5, option6) => {
     switch (option1, option2, option3, option4, option5, option6) {
@@ -285,7 +285,7 @@ changes value of an option according to $1 if all inputs are Some value
   /**
 map7(fn, option1, option2, option3, option4, option5, option6, option7)
 
-changes value of an option according to $1 if all inputs are Some value
+changes value of an option according to fn if all inputs are Some value
    */
   let map7 = (fn, option1, option2, option3, option4, option5, option6, option7) => {
     switch (option1, option2, option3, option4, option5, option6, option7) {
@@ -298,7 +298,7 @@ changes value of an option according to $1 if all inputs are Some value
   /**
 flatMap(fn, option)
 
-changes value of an option according to $1 if all inputs are Some value
+changes value of an option according to fn if all inputs are Some value
    */
   let flatMap = (fn, option) => {
     switch (option) {
@@ -311,7 +311,7 @@ changes value of an option according to $1 if all inputs are Some value
   /**
 flatMap2(fn, option1, option2)
 
-changes value of an option according to $1 if all inputs are Some value
+changes value of an option according to fn if all inputs are Some value
    */
   let flatMap2 = (fn, option1, option2) => {
     switch (option1, option2) {
@@ -324,7 +324,7 @@ changes value of an option according to $1 if all inputs are Some value
   /**
 flatMap3(fn, option1, option2, option3)
 
-changes value of an option according to $1 if all inputs are Some value
+changes value of an option according to fn if all inputs are Some value
    */
   let flatMap3 = (fn, option1, option2, option3) => {
     switch (option1, option2, option3) {
@@ -337,7 +337,7 @@ changes value of an option according to $1 if all inputs are Some value
   /**
 flatMap4(fn, option1, option2, option3, option4)
 
-changes value of an option according to $1 if all inputs are Some value
+changes value of an option according to fn if all inputs are Some value
    */
   let flatMap4 = (fn, option1, option2, option3, option4) => {
     switch (option1, option2, option3, option4) {
@@ -350,7 +350,7 @@ changes value of an option according to $1 if all inputs are Some value
   /**
 flatMap5(fn, option1, option2, option3, option4, option5)
 
-changes value of an option according to $1 if all inputs are Some value
+changes value of an option according to fn if all inputs are Some value
    */
   let flatMap5 = (fn, option1, option2, option3, option4, option5) => {
     switch (option1, option2, option3, option4, option5) {
@@ -363,7 +363,7 @@ changes value of an option according to $1 if all inputs are Some value
   /**
 flatMap6(fn, option1, option2, option3, option4, option5, option6)
 
-changes value of an option according to $1 if all inputs are Some value
+changes value of an option according to fn if all inputs are Some value
    */
   let flatMap6 = (fn, option1, option2, option3, option4, option5, option6) => {
     switch (option1, option2, option3, option4, option5, option6) {
@@ -376,7 +376,7 @@ changes value of an option according to $1 if all inputs are Some value
   /**
 flatMap7(fn, option1, option2, option3, option4, option5, option6, option7)
 
-changes value of an option according to $1 if all inputs are Some value
+changes value of an option according to fn if all inputs are Some value
    */
   let flatMap7 = (fn, option1, option2, option3, option4, option5, option6, option7) => {
     switch (option1, option2, option3, option4, option5, option6, option7) {
@@ -393,7 +393,7 @@ module CamlList = {
   /**
 isEmpty(list)
 
-returns whether $1 is empty
+returns whether list is empty
    */
   let isEmpty = (list) => {
     switch (list) {
@@ -409,7 +409,7 @@ module CamlArray = {
   /**
 isEmpty(array)
 
-returns whether $1 is empty
+returns whether array is empty
    */
   let isEmpty = (array) => {
     Caml.Array.length(array) === 0

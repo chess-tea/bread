@@ -39,13 +39,17 @@ module Function = {
       : mChild => {
     let render = _mUtils => {
       let argArray = Caml.Array.of_list(argNames);
-      let fUtils = {arg: x => argArray[x - 1]};
+      let argCount = Caml.Array.length(argArray);
+      let arg = x => argArray[x - 1];
+      let fUtils = {arg: arg};
       let argNames = Caml.String.concat(", ", argNames);
+      let replace = Utils.replaceDollars(arg, argCount);
+      let replaceList = Caml.List.map(replace);
       let doc = [
         "/**",
         name ++ "(" ++ argNames ++ ")",
         "",
-        desc,
+        replace(desc),
         // "",
         // "  - TODO: Examples, SeeAlso",
         " */",
@@ -53,7 +57,7 @@ module Function = {
       let bindingOpen = ["let " ++ name ++ " = (" ++ argNames ++ ") => {"];
       let body = Render.indent(body(fUtils));
       let bindingClose = ["};"];
-      [""] @ doc @ bindingOpen @ body @ bindingClose @ [""];
+      [""] @ doc @ bindingOpen @ replaceList(body) @ bindingClose @ [""];
     };
     [render];
   };

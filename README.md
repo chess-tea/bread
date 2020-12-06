@@ -1,5 +1,9 @@
 # Bread 🍞🥖🥐
 
+_Note: This is one of my side projects and isn't at the caliber of production
+code you might expect. Everything should work, but if it doesn't feel free to
+open an issue._
+
 ## **bread**  -  _/ brɛd /_  -  n.
 
 1. A critical element in sandwich construction that provides structure.
@@ -41,19 +45,27 @@ We don't have docs yet. Hah, take that person exploring this library.
 ## Primary commands
 
 - `esy` - Builds and installs
-- `esy format` - Runs refmt on all source code
 - `esy test` - Runs Rely tests
 - `esy gen` - Generates `lib/bread` source code for use
+  - Note: If `gen` outputs invalid code it's possible to get into a semi-broken
+  build state. To recover revert bad files to older versions and then fix the
+  generation.
+- `esy format` - Runs refmt on all source code
 
 ## Directory setup
 
+- `lib/bread`
+  - The final output that can be consumed.
+  - Everything in here is generated and should not be modified manually.
+- `src/bread_core`
+  - These are utilities and common code used throughout the project. This code is
+  **not** used by the output `lib/bread`.
 - `src/bread_config`
   - This is the source code and configuration that will be used to build `lib/bread`. This is a level of indirection that allows outputting more performant, consistent, and better documented code.
 - `src/bread_gen`
   - An executable that reads source code and configuration information from `src/bread_config` and creates `lib/bread`.
-- `lib/bread`
-  - The final output that can be consumed.
-  - Everything in here is generated and should not be modified manually.
+- `templates/`
+  - A directory containing templates for more complex functions.
 - `tests/TestExe.re`
   - This is the test executable. Any reason files in `tests` that `open TestFramework` and use `describe` will be registered and run when calling `esy test`.
   - See [reason-native/rely](https://reason-native.com/docs/rely/).

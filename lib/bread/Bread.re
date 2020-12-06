@@ -15,7 +15,96 @@ module Caml = {
 };
 
 module String = {
+  
+  /**
+length(string)
+
+returns the length (number of characters) of string
+   */
   let length = Caml.String.length;
+  
+  /**
+get(string, i)
+
+returns the character in string at index i. This function can also be called using the syntax: string.[i]
+   */
+  let get = Caml.String.get;
+  
+  /**
+charAt(i, string)
+
+returns the character in string at index i
+   */
+  let charAt = (i, string) => {
+    Caml.String.get(string, i);
+  };
+  
+  /**
+make(length, c)
+
+returns a new string with length length, filled with the character c
+   */
+  let make = Caml.String.make;
+  
+  /**
+init(length, fn)
+
+returns a new string with length length, with the character at each index, i, defined by fn(i)
+   */
+  let init = Caml.String.init;
+  
+  /**
+fromChar(c)
+
+returns a new string of length 1 containing only the character c
+   */
+  let fromChar = (c) => {
+    let s = Caml.String.make(1, c);
+    s;
+  };
+  
+  /**
+fromCharArray(array)
+
+returns a new string containing the characters in array
+   */
+  let fromCharArray = (array) => {
+    let n = Caml.Array.length(array);
+    let s = Caml.String.init(n, i => array[i]);
+    s;
+  };
+  
+  /**
+fromCharList(list)
+
+returns a new string containing the characters in list
+   */
+  let fromCharList = (list) => {
+    let list = Caml.Array.of_list(list);
+    fromCharArray(list);
+  };
+  
+  /**
+toCharArray(string)
+
+returns an array of the characters in string
+   */
+  let toCharArray = (string) => {
+    let n = Caml.String.length(string);
+    let arr = Caml.Array.init(n, i => Caml.String.get(string, i));
+    arr;
+  };
+  
+  /**
+toCharList(string)
+
+returns a list of the characters in string
+   */
+  let toCharList = (string) => {
+    let arr = toCharArray(string);
+    let list = Caml.Array.to_list(arr);
+    list;
+  };
   
   /**
 slice(i, j, string)

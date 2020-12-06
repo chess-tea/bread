@@ -32,7 +32,8 @@ module Function = {
         ~desc: string,
         ~seeAlso: list(string)=[],
         ~examples: list(string)=[],
-        ~body: fUtils => list(string),
+        ~body: option(fUtils => list(string))=?,
+        ~rebind: option(string)=?,
         ~children: list(unit),
         _,
       )
@@ -54,59 +55,37 @@ module Function = {
         // "  - TODO: Examples, SeeAlso",
         " */",
       ];
-      let bindingOpen = ["let " ++ name ++ " = (" ++ argNames ++ ") => {"];
-      let body = Render.indent(body(fUtils));
-      let bindingClose = ["};"];
-      [""] @ doc @ bindingOpen @ replaceList(body) @ bindingClose @ [""];
+      let content =
+        switch (body, rebind) {
+        | (Some(body), _) =>
+          let bindingOpen = [
+            "let " ++ name ++ " = (" ++ argNames ++ ") => {",
+          ];
+          let body = Render.indent(body(fUtils));
+          let bindingClose = ["};"];
+          bindingOpen @ replaceList(body) @ bindingClose;
+        | (_, Some(rebind)) => [
+            "let " ++ name ++ " = " ++ rebind ++ ";",
+          ]
+        | (None, None) => ["{ (); };"]
+        };
+      [""] @ doc @ content @ [""];
     };
     [render];
   };
 };
 
 module Raw = {
-  let createElement =
-      (
-        ~raw: string,
-        ~children: list(unit),
-        _,
-      )
-      : mChild => {
+  let createElement = (~raw: string, ~children: list(unit), _): mChild => {
     let render = _mUtils => {
-      [raw]
-    };
-    [render];
-  };
-};
-
-module Let = {
-  let createElement =
-      (
-        ~name: string,
-        ~right: string,
-        ~t: option(string)=?,
-        ~children: list(unit),
-        _,
-      )
-      : mChild => {
-    let render = _mUtils => {
-      let t = switch (t) {
-      | Some(t) => ": " ++ t;
-      | None => ""
-      };
-      ["let " ++ name ++ t ++ " = " ++ right ++ ";"];
+      [raw];
     };
     [render];
   };
 };
 
 module Template = {
-  let createElement =
-      (
-        ~name: string,
-        ~children: list(unit),
-        _,
-      )
-      : mChild => {
+  let createElement = (~name: string, ~children: list(unit), _): mChild => {
     let render = (utils: mUtils) => {
       [""] @ utils.template(name) @ [""];
     };

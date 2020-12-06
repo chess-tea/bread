@@ -2,6 +2,7 @@ open BreadCore;
 open Components;
 
 <ModuleDef name="String">
+  <Raw raw="type t = string;" />
   <Function
     name="length"
     rebind="Caml.String.length"
@@ -9,6 +10,22 @@ open Components;
     return="int"
     argNames=["string"]
     desc="returns the length (number of characters) of $1"
+  />
+  <Function
+    name="compare"
+    rebind="Caml.String.compare"
+    args=["t", "t"]
+    return="int"
+    argNames=["a", "b"]
+    desc=Const.compareDesc
+  />
+  <Function
+    name="equal"
+    rebind="Caml.String.equal"
+    args=["t", "t"]
+    return="bool"
+    argNames=["a", "b"]
+    desc=Const.equalDesc
   />
   // Necessary for string.[i] syntax support.
   <Function
@@ -104,6 +121,22 @@ open Components;
         "list;",
       ]
     }}
+  />
+  <Function
+    name="toUppercase"
+    rebind="Caml.String.uppercase_ascii"
+    args=["t"]
+    return="t"
+    argNames=["string"]
+    desc="returns a copy of $1 with all lowercase letters converted to uppercase using the US-ASCII character set"
+  />
+  <Function
+    name="toLowercase"
+    rebind="Caml.String.lowercase_ascii"
+    args=["t"]
+    return="t"
+    argNames=["string"]
+    desc="returns a copy of $1 with all uppercase letters converted to lowercase using the US-ASCII character set"
   />
   <Function
     name="slice"

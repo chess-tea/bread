@@ -15,6 +15,7 @@ module Caml = {
 };
 
 module String = {
+  type t = string;
   
   /**
 length(string)
@@ -22,6 +23,20 @@ length(string)
 returns the length (number of characters) of string
    */
   let length = Caml.String.length;
+  
+  /**
+compare(a, b)
+
+compares a and b. A negative integer is returned when a < b, a positive integer is returned when a > b, and 0 is returned when a equals b
+   */
+  let compare = Caml.String.compare;
+  
+  /**
+equal(a, b)
+
+tests for equality between a and b
+   */
+  let equal = Caml.String.equal;
   
   /**
 get(string, i)
@@ -105,6 +120,20 @@ returns a list of the characters in string
     let list = Caml.Array.to_list(arr);
     list;
   };
+  
+  /**
+toUppercase(string)
+
+returns a copy of string with all lowercase letters converted to uppercase using the US-ASCII character set
+   */
+  let toUppercase = Caml.String.uppercase_ascii;
+  
+  /**
+toLowercase(string)
+
+returns a copy of string with all uppercase letters converted to lowercase using the US-ASCII character set
+   */
+  let toLowercase = Caml.String.lowercase_ascii;
   
   /**
 slice(i, j, string)

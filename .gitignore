@@ -69,3 +69,6 @@ _release/
 # reason
 *.install
 .merlin
+
+# vscode settings
+.vscode/

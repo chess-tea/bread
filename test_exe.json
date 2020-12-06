@@ -1,0 +1,9 @@
+{
+  "source": "./package.json",
+  "override": {
+    "build": "refmterr dune build -p bread,bread_core,bread_config,test",
+    "install": [
+      "esy-installer test.install"
+    ]
+  }
+}

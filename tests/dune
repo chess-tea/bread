@@ -1,20 +1,23 @@
 (library
-  (name Tests)
+  (name Test)
+  (public_name test)
   (ocamlopt_flags -linkall -g -w -9-27)
   (ocamlc_flags -w -9-27)
   (libraries
-    Bread
-    BreadConfig
-    Core
+    bread
+    bread_config
+    bread_core
     rely.lib
   )
   (modules :standard \ TestExe)
 )
 (executable
   (name TestExe)
+  (public_name test_exe)
+  (package test)
   (ocamlc_flags -w -9-27)
   (ocamlopt_flags -w -9-27)
-  (libraries Tests)
+  (libraries test)
   (modules TestExe)
 )
 (include_subdirs unqualified)

@@ -1,6 +1,6 @@
 (library
-  (public_name bread)
   (name Bread)
+  (public_name bread)
   (libraries)
 )
 (include_subdirs unqualified)

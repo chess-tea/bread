@@ -1,4 +1,4 @@
-open Core;
+open BreadCore;
 open Components;
 
 <ModuleDef name="Result">

@@ -4,19 +4,15 @@
   "description": "Data Structures and Algorithms designed for Reason",
   "license": "MIT",
   "esy": {
-    "build": "dune build -p #{self.name}",
-    "buildDev": [
-      "refmterr dune build ./src/bread_gen/BreadGen.exe",
-      "refmterr dune build ./tests/TestExe.exe"
-    ],
+    "build": "dune build -p bread",
     "install": [
       "esy-installer bread.install"
     ]
   },
   "scripts": {
     "format": "./scripts/format",
-    "test": "esy #{self.target_dir}/default/tests/TestExe.exe --onlyPrintDetailsForFailedSuites",
-    "gen": "esy #{self.target_dir}/default/src/bread_gen/BreadGen.exe #{self.root}/lib/bread/ #{self.root}/templates/"
+    "test": "esy '@test_exe' x test_exe",
+    "gen": "esy '@bread_gen' x bread_gen #{self.root}/lib/bread/ #{self.root}/templates/"
   },
   "dependencies": {
     "@esy-ocaml/reason": "*",

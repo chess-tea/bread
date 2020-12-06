@@ -1,5 +1,7 @@
 (executable
   (name BreadGen)
+  (public_name bread_gen)
+  (package bread_gen)
   (ocamlopt_flags -w -9-27)
   (ocamlc_flags -w -9-27)
   (libraries

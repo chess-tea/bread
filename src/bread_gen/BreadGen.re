@@ -24,18 +24,19 @@ let templatesDir = Fp.absoluteExn(templatesDir);
 module StringMap = Map.Make(String);
 let templateMap = ref(StringMap.empty);
 Fs.traverseFileSystemFromPath(
-  ~onNode=(result, cont) => {
-    switch (result) {
-    | File(path, _stat) =>
-      let pathString = Fp.toString(path);
-      let contents = Fs.readTextExn(path);
-      templateMap := StringMap.add(pathString, contents, templateMap^);
-    | _ => cont();
-    };
-  },
-  templatesDir
+  ~onNode=
+    (result, cont) => {
+      switch (result) {
+      | File(path, _stat) =>
+        let pathString = Fp.toString(path);
+        let contents = Fs.readTextExn(path);
+        templateMap := StringMap.add(pathString, contents, templateMap^);
+      | _ => cont()
+      }
+    },
+  templatesDir,
 );
-let getTemplate = (name) => {
+let getTemplate = name => {
   let path = Fp.At.(templatesDir / name);
   let pathString = Fp.toString(path);
   if (!StringMap.mem(pathString, templateMap^)) {
@@ -52,11 +53,13 @@ let ms = Registry.Modules.get();
 
 let contents =
   Registry.Modules.get()
-  |> List.sort((m1: Core.Types.m, m2: Core.Types.m) => compare(m1.priority, m2.priority))
+  |> List.sort((m1: BreadCore.Types.m, m2: BreadCore.Types.m) =>
+       compare(m1.priority, m2.priority)
+     )
   |> List.rev
-  |> List.map((m: Core.Types.m) => {
+  |> List.map((m: BreadCore.Types.m) => {
        print_endline("  - " ++ m.name);
-       let contents = Core.Render.m(~getTemplate, m);
+       let contents = BreadCore.Render.m(~getTemplate, m);
        contents;
      })
   |> List.flatten;

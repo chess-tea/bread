@@ -1,5 +1,5 @@
 module Modules = {
-  type t = Core.Types.m;
+  type t = BreadCore.Types.m;
 
   module Private = {
     let items: ref(list(t)) = ref([]);

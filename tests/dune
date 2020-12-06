@@ -12,6 +12,8 @@
 )
 (executable
   (name TestExe)
+  (ocamlc_flags -w -9-27)
+  (ocamlopt_flags -w -9-27)
   (libraries Tests)
   (modules TestExe)
 )

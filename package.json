@@ -19,19 +19,20 @@
     "gen": "esy #{self.target_dir}/default/src/bread_gen/BreadGen.exe #{self.root}/lib/bread/ #{self.root}/templates/"
   },
   "dependencies": {
-    "ocaml": "^4.08.0",
-    "@opam/dune": "^1.11.4",
-    "@esy-ocaml/reason": "< 4.0.0"
+    "@esy-ocaml/reason": "*",
+    "@opam/dune": "*",
+    "ocaml": "~4.9.0"
   },
   "devDependencies": {
-    "ocaml": "<= 4.08.0",
-    "@reason-native/rely": "^3.1.0",
+    "@opam/merlin": "*",
+    "@opam/ocaml-lsp-server": "ocaml/ocaml-lsp:ocaml-lsp-server.opam",
     "@reason-native/fp": "*",
     "@reason-native/fs": "*",
-    "refmterr": "*",
-    "@opam/merlin": "*"
+    "@reason-native/rely": "^3.2.1",
+    "refmterr": "*"
   },
   "resolutions": {
-    "@reason-native/fp": "facebookexperimental/reason-native:fp.json#d08d115"
+    "@reason-native/fs": "ManasJayanth/reason-native:fs.json#1240e2757a9685473280b9543f6ae2d8bd53c552",
+    "@reason-native/fp": "ManasJayanth/reason-native:fp.json#1240e2757a9685473280b9543f6ae2d8bd53c552"
   }
 }

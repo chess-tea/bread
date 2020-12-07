@@ -2,7 +2,14 @@ open BreadCore;
 open Components;
 
 <ModuleDef name="String">
-  <Raw raw="type t = string;" />
+  <Raw
+    desc={
+      "Alias for the string type. Useful for using this module with certain "
+      ++ "Functors"
+    }
+    raw="type t = string;"
+  />
+  <Raw desc="The empty string." raw="let empty = \"\";" />
   <Function
     name="length"
     rebind="Caml.String.length"
@@ -34,7 +41,10 @@ open Components;
     args=["t", "int"]
     return="char"
     argNames=["string", "i"]
-    desc="returns the character in $1 at index $2. This function can also be called using the syntax: $1.[$2]"
+    desc={
+      "returns the character in $1 at index $2. This function can also be "
+      ++ "called using the syntax: $1.[$2]"
+    }
     seeAlso=["String.charAt"]
   />
   <Function
@@ -60,7 +70,10 @@ open Components;
     args=["int", "(int => char)"]
     return="t"
     argNames=["length", "fn"]
-    desc="returns a new string with length $1, with the character at each index, i, defined by $2(i)"
+    desc={
+      "returns a new string with length $1, with the character at each index, "
+      ++ "i, defined by $2(i)"
+    }
   />
   <Function
     name="fromChar"
@@ -128,7 +141,10 @@ open Components;
     args=["t"]
     return="t"
     argNames=["string"]
-    desc="returns a copy of $1 with all lowercase letters converted to uppercase using the US-ASCII character set"
+    desc={
+      "returns a copy of $1 with all lowercase letters converted to "
+      ++ "uppercase using the US-ASCII character set"
+    }
   />
   <Function
     name="toLowercase"
@@ -136,7 +152,61 @@ open Components;
     args=["t"]
     return="t"
     argNames=["string"]
-    desc="returns a copy of $1 with all uppercase letters converted to lowercase using the US-ASCII character set"
+    desc={
+      "returns a copy of $1 with all uppercase letters converted to "
+      ++ "lowercase using the US-ASCII character set"
+    }
+  />
+  <Function
+    name="concat"
+    rebind="Caml.String.concat"
+    args=["t", "list(t)"]
+    return="t"
+    argNames=["separator", "list"]
+    seeAlso=["String.join"]
+    desc={
+      "concatenates all elements of $2 together with $1 inserted between "
+      ++ "each pair of elements"
+    }
+  />
+  <Function
+    name="join"
+    rebind="Caml.String.concat"
+    args=["t", "list(t)"]
+    return="t"
+    argNames=["separator", "list"]
+    seeAlso=["String.concat"]
+    desc={
+      "concatenates all elements of $2 together with $1 inserted between "
+      ++ "each pair of elements"
+    }
+  />
+  <Function
+    name="escape"
+    rebind="Caml.String.escaped"
+    args=["t"]
+    return="t"
+    argNames=["string"]
+    seeAlso=["String.unescape"]
+    desc={
+      "Returns a copy of $1 with special characters represented by escape "
+      ++ "sequences following the lexical conventions of OCaml. All characters "
+      ++ "outside the ASCII printable range (32...126) are escaped, as well as "
+      ++ "backslash and double-quote."
+    }
+  />
+  <Function
+    name="unescape"
+    rebind="Caml.Scanf.unescaped"
+    args=["t"]
+    return="t"
+    argNames=["string"]
+    seeAlso=["String.escape"]
+    desc={
+      "Returns a copy of $1 with escape sequences, following the lexical "
+      ++ "conventions of OCaml, replaced by their corresponding special "
+      ++ "characters."
+    }
   />
   <Function
     name="slice"
@@ -176,4 +246,55 @@ open Components;
   <Template name="string/lastIndexOfInt" />
   <Template name="string/lastIndexOf" />
   <Template name="string/contains" />
+  <Template name="string/split" />
+  <Function
+    name="replaceFirst"
+    args=["t", "t", "t"]
+    return="t"
+    argNames=["token", "replacement", "string"]
+    desc="replaces the first occurence of $1 in $3 with $2"
+    body={({arg}) => {
+      [
+        "let i = indexOfInt($1, $3);",
+        "if (i === -1) {",
+        "  $3;",
+        "} else {",
+        "  let tn = length($1);",
+        "  slice(0, i, $3) ++ $2 ++ sliceToEnd(i + tn, $3);",
+        "};",
+      ]
+    }}
+  />
+  <Function
+    name="replaceLast"
+    args=["t", "t", "t"]
+    return="t"
+    argNames=["token", "replacement", "string"]
+    desc="replaces the last occurence of $1 in $3 with $2"
+    body={({arg}) => {
+      [
+        "let i = lastIndexOfInt($1, $3);",
+        "if (i === -1) {",
+        "  $3;",
+        "} else {",
+        "  let tn = length($1);",
+        "  slice(0, i, $3) ++ $2 ++ sliceToEnd(i + tn, $3);",
+        "};",
+      ]
+    }}
+  />
+  <Function
+    name="replaceAll"
+    args=["t", "t", "t"]
+    return="t"
+    argNames=["token", "replacement", "string"]
+    desc="replaces all occurences of $1 in $3 with $2"
+    body={({arg}) => {
+      [
+        "let parts = split($1, $3);",
+        "let combined = concat($2, parts);",
+        "combined;",
+      ]
+    }}
+  />
 </ModuleDef>;

@@ -5,4 +5,5 @@ open Components;
   <Raw raw="module Array = Array;" />
   <Raw raw="module List = List;" />
   <Raw raw="module String = String;" />
+  <Raw raw="module Scanf = Scanf;" />
 </ModuleDef>;

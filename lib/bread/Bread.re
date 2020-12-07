@@ -12,10 +12,18 @@ module Caml = {
   module Array = Array;
   module List = List;
   module String = String;
+  module Scanf = Scanf;
 };
 
 module String = {
+  /**
+Alias for the string type. Useful for using this module with certain Functors
+   */
   type t = string;
+  /**
+The empty string.
+   */
+  let empty = "";
   
   /**
 length(string)
@@ -134,6 +142,34 @@ toLowercase(string)
 returns a copy of string with all uppercase letters converted to lowercase using the US-ASCII character set
    */
   let toLowercase = Caml.String.lowercase_ascii;
+  
+  /**
+concat(separator, list)
+
+concatenates all elements of list together with separator inserted between each pair of elements
+   */
+  let concat = Caml.String.concat;
+  
+  /**
+join(separator, list)
+
+concatenates all elements of list together with separator inserted between each pair of elements
+   */
+  let join = Caml.String.concat;
+  
+  /**
+escape(string)
+
+Returns a copy of string with special characters represented by escape sequences following the lexical conventions of OCaml. All characters outside the ASCII printable range (32...126) are escaped, as well as backslash and double-quote.
+   */
+  let escape = Caml.String.escaped;
+  
+  /**
+unescape(string)
+
+Returns a copy of string with escape sequences, following the lexical conventions of OCaml, replaced by their corresponding special characters.
+   */
+  let unescape = Caml.Scanf.unescaped;
   
   /**
 slice(i, j, string)
@@ -266,6 +302,73 @@ returns a substring of string from index i to the end
   let contains = needle => {
     let indexOfIntPartial = indexOfInt(needle);
     haystack => indexOfIntPartial(haystack) !== (-1);
+  };
+  
+  let split = (token, string) => {
+    let tn = Caml.String.length(token);
+    if (tn === 0) {
+      Caml.List.map(fromChar, toCharList(string));
+    } else {
+      let indexOf = indexOfInt(token);
+      let result = ref([]);
+      let consider = ref(string);
+      let break = ref(false);
+      while (! break^) {
+        let i = indexOf(consider^);
+        switch (i) {
+        | (-1) =>
+          result := [consider^, ...result^];
+          consider := "";
+          break := true;
+          ();
+        | _ =>
+          result := [slice(0, i, consider^), ...result^];
+          consider := sliceToEnd(i + tn, consider^);
+        };
+      };
+      Caml.List.rev(result^);
+    };
+  };
+  
+  /**
+replaceFirst(token, replacement, string)
+
+replaces the first occurence of token in string with replacement
+   */
+  let replaceFirst = (token, replacement, string) => {
+    let i = indexOfInt(token, string);
+    if (i === -1) {
+      string;
+    } else {
+      let tn = length(token);
+      slice(0, i, string) ++ replacement ++ sliceToEnd(i + tn, string);
+    };
+  };
+  
+  /**
+replaceLast(token, replacement, string)
+
+replaces the last occurence of token in string with replacement
+   */
+  let replaceLast = (token, replacement, string) => {
+    let i = lastIndexOfInt(token, string);
+    if (i === -1) {
+      string;
+    } else {
+      let tn = length(token);
+      slice(0, i, string) ++ replacement ++ sliceToEnd(i + tn, string);
+    };
+  };
+  
+  /**
+replaceAll(token, replacement, string)
+
+replaces all occurences of token in string with replacement
+   */
+  let replaceAll = (token, replacement, string) => {
+    let parts = split(token, string);
+    let combined = concat(replacement, parts);
+    combined;
   };
   
 };

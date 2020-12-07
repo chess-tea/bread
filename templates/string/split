@@ -1,0 +1,25 @@
+let split = (token, string) => {
+  let tn = Caml.String.length(token);
+  if (tn === 0) {
+    Caml.List.map(fromChar, toCharList(string));
+  } else {
+    let indexOf = indexOfInt(token);
+    let result = ref([]);
+    let consider = ref(string);
+    let break = ref(false);
+    while (! break^) {
+      let i = indexOf(consider^);
+      switch (i) {
+      | (-1) =>
+        result := [consider^, ...result^];
+        consider := "";
+        break := true;
+        ();
+      | _ =>
+        result := [slice(0, i, consider^), ...result^];
+        consider := sliceToEnd(i + tn, consider^);
+      };
+    };
+    Caml.List.rev(result^);
+  };
+};

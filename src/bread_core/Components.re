@@ -57,17 +57,20 @@ module Function = {
       ];
       let content =
         switch (body, rebind) {
-        | (Some(body), _) =>
+        | (Some(body), None) =>
           let bindingOpen = [
             "let " ++ name ++ " = (" ++ argNames ++ ") => {",
           ];
           let body = Render.indent(body(fUtils));
           let bindingClose = ["};"];
           bindingOpen @ replaceList(body) @ bindingClose;
-        | (_, Some(rebind)) => [
-            "let " ++ name ++ " = " ++ rebind ++ ";",
-          ]
+        | (None, Some(rebind)) => ["let " ++ name ++ " = " ++ rebind ++ ";"]
         | (None, None) => ["{ (); };"]
+        | (Some(_), Some(_)) =>
+          failwith(
+            "Cannot have `body` and `rebind` field in `Function` definition. See:"
+            ++ name,
+          )
         };
       [""] @ doc @ content @ [""];
     };
@@ -76,9 +79,16 @@ module Function = {
 };
 
 module Raw = {
-  let createElement = (~raw: string, ~children: list(unit), _): mChild => {
+  let createElement =
+      (~desc: option(string)=?, ~raw: string, ~children: list(unit), _)
+      : mChild => {
     let render = _mUtils => {
-      [raw];
+      let doc =
+        switch (desc) {
+        | Some(desc) => ["/**", desc, " */"]
+        | None => []
+        };
+      doc @ [raw];
     };
     [render];
   };

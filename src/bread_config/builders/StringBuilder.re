@@ -293,7 +293,17 @@ open Components;
       [
         "let parts = split($1, $3);",
         "let combined = concat($2, parts);",
-        "combined;",
+        "let combined =",
+        "  if ($1 == \"\") {",
+        "    if ($3 == \"\") {",
+        "      $2 ++ combined;",
+        "    } else {",
+        "      $2 ++ combined ++ $2;",
+        "    };",
+        "  } else {",
+        "    combined;",
+        "  };",
+        "combined;"
       ]
     }}
   />

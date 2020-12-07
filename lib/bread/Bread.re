@@ -368,6 +368,16 @@ replaces all occurences of token in string with replacement
   let replaceAll = (token, replacement, string) => {
     let parts = split(token, string);
     let combined = concat(replacement, parts);
+    let combined =
+      if (token == "") {
+        if (string == "") {
+          replacement ++ combined;
+        } else {
+          replacement ++ combined ++ replacement;
+        };
+      } else {
+        combined;
+      };
     combined;
   };
   

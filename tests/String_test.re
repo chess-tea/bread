@@ -32,4 +32,52 @@ describe("String", ({test}) => {
     expect.list(s("11", "112311")).toEqual(["", "23", ""]);
     expect.list(s("11", "11123111")).toEqual(["", "123", "1"]);
   });
+
+  test("replaceAll", ({expect}) => {
+    let r = String.replaceAll;
+    expect.string(r("a", "b", "1a2a3a")).toEqual("1b2b3b");
+    expect.string(r("a2", "b2", "1a2a3a")).toEqual("1b2a3a");
+    expect.string(r("a", "b", "aaa")).toEqual("bbb");
+    expect.string(r("a", "aa", "aaa")).toEqual("aaaaaa");
+    expect.string(r("aa", "x", "aaa")).toEqual("xa");
+    expect.string(r("apple", "lemon", "applejuice")).toEqual("lemonjuice");
+    expect.string(r("a", "", "aaa")).toEqual("");
+    expect.string(r("aa", "", "aaa")).toEqual("a");
+    expect.string(r("aa", "", "aaaa")).toEqual("");
+    expect.string(r("aaa", "", "aaaa")).toEqual("a");
+    expect.string(r("", "a", "123")).toEqual("a1a2a3a");
+    expect.string(r("", "", "123")).toEqual("123");
+  });
+
+  test("replaceFirst", ({expect}) => {
+    let r = String.replaceFirst;
+    expect.string(r("a", "b", "1a2a3a")).toEqual("1b2a3a");
+    expect.string(r("a2", "b2", "1a2a3a")).toEqual("1b2a3a");
+    expect.string(r("a", "b", "aaa")).toEqual("baa");
+    expect.string(r("a", "aa", "aaa")).toEqual("aaaa");
+    expect.string(r("aa", "x", "aaa")).toEqual("xa");
+    expect.string(r("apple", "lemon", "applejuice")).toEqual("lemonjuice");
+    expect.string(r("a", "", "aaa")).toEqual("aa");
+    expect.string(r("aa", "", "aaa")).toEqual("a");
+    expect.string(r("aa", "", "aaaa")).toEqual("aa");
+    expect.string(r("aaa", "", "aaaa")).toEqual("a");
+    expect.string(r("", "a", "123")).toEqual("a123");
+    expect.string(r("", "", "123")).toEqual("123");
+  });
+
+  test("replaceLast", ({expect}) => {
+    let r = String.replaceLast;
+    expect.string(r("a", "b", "1a2a3a")).toEqual("1a2a3b");
+    expect.string(r("a2", "b2", "1a2a3a")).toEqual("1b2a3a");
+    expect.string(r("a", "b", "aaa")).toEqual("aab");
+    expect.string(r("a", "aa", "aaa")).toEqual("aaaa");
+    expect.string(r("aa", "x", "aaa")).toEqual("ax");
+    expect.string(r("apple", "lemon", "applejuice")).toEqual("lemonjuice");
+    expect.string(r("a", "", "aaa")).toEqual("aa");
+    expect.string(r("aa", "", "aaa")).toEqual("a");
+    expect.string(r("aa", "", "aaaa")).toEqual("aa");
+    expect.string(r("aaa", "", "aaaa")).toEqual("a");
+    expect.string(r("", "a", "123")).toEqual("123a");
+    expect.string(r("", "", "123")).toEqual("123");
+  });
 });

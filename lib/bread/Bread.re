@@ -1234,6 +1234,105 @@ changes value of an option according to fn if all inputs are Some value
   
 };
 
+module GraphWeighted = {
+  
+  type t = {
+    nodes: Map.t(int),
+    nodesRev: IntMap.t(string),
+    edges: IntMap.t(IntMap.t(int)),
+  };
+  
+  type dfsKind =
+    | OnEnter
+    | OnExit;
+  
+  let empty = {nodes: Map.empty, nodesRev: IntMap.empty, edges: IntMap.empty};
+  
+  let addNode = (string, graph) =>
+    if (!Map.hasKey(string, graph.nodes)) {
+      let id = Map.size(graph.nodes);
+      let nodes = Map.set(string, id, graph.nodes);
+      let nodesRev = IntMap.set(id, string, graph.nodesRev);
+      {...graph, nodes, nodesRev};
+    } else {
+      graph;
+    };
+  
+  let addDirected = (u, v, weight, graph) => {
+    let graph = addNode(u, graph);
+    let graph = addNode(v, graph);
+    let u = Map.getExn(u, graph.nodes);
+    let v = Map.getExn(v, graph.nodes);
+    let adjacent =
+      if (!IntMap.hasKey(u, graph.edges)) {
+        IntMap.empty;
+      } else {
+        IntMap.getExn(u, graph.edges);
+      };
+    let edges = IntMap.set(u, IntMap.set(v, weight, adjacent), graph.edges);
+    {...graph, edges};
+  };
+  
+  let addUndirected = (u, v, weight, graph) => {
+    let graph = addDirected(u, v, weight, graph);
+    let graph = addDirected(v, u, weight, graph);
+    graph;
+  };
+  
+  let dfs = (~kind=OnEnter, fn, initial, root, graph) => {
+    if (!Map.hasKey(root, graph.nodes)) {
+      failwith("Unknown node: " ++ root);
+    };
+    let root = Map.getExn(root, graph.nodes);
+    let result = ref(initial);
+    let visited = ref(IntSet.empty);
+    let rec helper = (curr, weight, rootCall) =>
+      if (!IntSet.has(curr, visited^)) {
+        let node = IntMap.getExn(curr, graph.nodesRev);
+        visited := IntSet.add(curr, visited^);
+  
+        if (!rootCall) {
+          switch (kind) {
+          | OnEnter =>
+            result := fn(result^, node, weight);
+            ();
+          | OnExit => ()
+          };
+        };
+  
+        let nextEdges = IntMap.get(curr, graph.edges);
+        switch (nextEdges) {
+        | Some(nextEdges) =>
+          // TODO: Change to iter/forEach.
+          let _ =
+            IntMap.mapi(
+              (next, weight) => {
+                helper(next, weight, false);
+                next;
+              },
+              nextEdges,
+            );
+          ();
+        | None => ()
+        };
+  
+        if (!rootCall) {
+          switch (kind) {
+          | OnEnter => ()
+          | OnExit =>
+            result := fn(result^, node, weight);
+            ();
+          };
+        };
+  
+        ();
+      };
+    helper(root, -1, true);
+    result^;
+  };
+  
+};
+
 module Graph = {
   
   type t = {

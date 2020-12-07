@@ -1,0 +1,5 @@
+type t = {
+  nodes: Map.t(int),
+  nodesRev: IntMap.t(string),
+  edges: IntMap.t(IntMap.t(int)),
+};

@@ -1,0 +1,14 @@
+let addDirected = (u, v, weight, graph) => {
+  let graph = addNode(u, graph);
+  let graph = addNode(v, graph);
+  let u = Map.getExn(u, graph.nodes);
+  let v = Map.getExn(v, graph.nodes);
+  let adjacent =
+    if (!IntMap.hasKey(u, graph.edges)) {
+      IntMap.empty;
+    } else {
+      IntMap.getExn(u, graph.edges);
+    };
+  let edges = IntMap.set(u, IntMap.set(v, weight, adjacent), graph.edges);
+  {...graph, edges};
+};

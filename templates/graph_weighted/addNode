@@ -1,0 +1,9 @@
+let addNode = (string, graph) =>
+  if (!Map.hasKey(string, graph.nodes)) {
+    let id = Map.size(graph.nodes);
+    let nodes = Map.set(string, id, graph.nodes);
+    let nodesRev = IntMap.set(id, string, graph.nodesRev);
+    {...graph, nodes, nodesRev};
+  } else {
+    graph;
+  };

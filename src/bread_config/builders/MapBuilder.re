@@ -2,7 +2,7 @@ open BreadCore;
 open Components;
 
 let make = (moduleName, functorArg, keyType) => {
-  <ModuleDef name=moduleName>
+  <ModuleDef name=moduleName priority=25>
     <Raw raw={"module Impl = Caml.Map.Make(" ++ functorArg ++ ");"} />
     <Raw
       desc="Alias for the map type."

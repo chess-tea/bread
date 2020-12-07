@@ -1,0 +1,47 @@
+let dfs = (~kind=OnEnter, fn, initial, root, graph) => {
+  if (!Map.hasKey(root, graph.nodes)) {
+    failwith("Unknown node: " ++ root);
+  };
+  let root = Map.getExn(root, graph.nodes);
+  let result = ref(initial);
+  let visited = ref(IntSet.empty);
+  let rec helper = curr =>
+    if (!IntSet.has(curr, visited^)) {
+      let node = IntMap.getExn(curr, graph.nodesRev);
+      visited := IntSet.add(curr, visited^);
+
+      switch (kind) {
+      | OnEnter =>
+        result := fn(result^, node);
+        ();
+      | OnExit => ()
+      };
+
+      let nextEdges = IntMap.get(curr, graph.edges);
+      switch (nextEdges) {
+      | Some(nextEdges) =>
+        // TODO: Change to iter/forEach.
+        let _ =
+          IntSet.map(
+            next => {
+              helper(next);
+              next;
+            },
+            nextEdges,
+          );
+        ();
+      | None => ()
+      };
+
+      switch (kind) {
+      | OnEnter => ()
+      | OnExit =>
+        result := fn(result^, node);
+        ();
+      };
+
+      ();
+    };
+  helper(root);
+  result^;
+};

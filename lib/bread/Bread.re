@@ -666,6 +666,234 @@ returns a new set where each element, el, of set has been transformed by calling
   
 };
 
+module Map = {
+  module Impl = Caml.Map.Make(String);
+  /**
+Alias for the map type.
+   */
+  type t('value) = Impl.t('value);
+  /**
+The empty map.
+   */
+  let empty = Impl.empty;
+  
+  /**
+isEmpty(map)
+
+tests whether map is empty
+   */
+  let isEmpty = Impl.is_empty;
+  
+  /**
+size(map)
+
+returns the number of entries in map
+   */
+  let size = Impl.cardinal;
+  
+  /**
+hasKey(key, map)
+
+tests if the key key is present in map
+   */
+  let hasKey = Impl.mem;
+  
+  /**
+get(key, map)
+
+returns Some(value) associated with key if it exists in map, None otherwise
+   */
+  let get = Impl.find_opt;
+  
+  /**
+getExn(key, map)
+
+returns the value associated with key if it exists in map, raises Not_found otherwise
+   */
+  let getExn = Impl.find;
+  
+  /**
+set(key, value, map)
+
+returns a new map containing the entries of map with the value of key set to value
+   */
+  let set = Impl.add;
+  
+  /**
+remove(key, map)
+
+returns a new map containing the entries of map with the entry of key key removed
+   */
+  let remove = Impl.remove;
+  
+  /**
+map(fn, map)
+
+returns a new map with the same keys as map where each value, v, has been transformed by calling fn(v)
+   */
+  let map = Impl.map;
+  
+  /**
+mapi(fn, map)
+
+returns a new map with the same keys as map where each value, v, has been transformed by calling fn(key, v)
+   */
+  let mapi = Impl.mapi;
+  
+  /**
+fromList(list)
+
+creates a map from the entries of list, if there are duplicate keys, then the map will contain the value occuring last in list
+   */
+  let fromList = (list) => {
+    Caml.List.fold_left(
+      (m, (key, value)) => Impl.add(key, value, m),
+      Impl.empty,
+      list,
+    );
+  };
+  
+  /**
+toList(map)
+
+returns the entries of map as a list
+   */
+  let toList = Impl.bindings;
+  
+  /**
+fromArray(array)
+
+creates a map from the entries of array, if there are duplicate keys, then the map will contain the value occuring last in array
+   */
+  let fromArray = (array) => {
+    fromList(Caml.Array.to_list(array));
+  };
+  
+  /**
+toArray(map)
+
+returns the entries of map as an array
+   */
+  let toArray = (map) => {
+    Caml.Array.of_list(toList(map));
+  };
+  
+};
+
+module IntMap = {
+  module Impl = Caml.Map.Make(Int);
+  /**
+Alias for the map type.
+   */
+  type t('value) = Impl.t('value);
+  /**
+The empty map.
+   */
+  let empty = Impl.empty;
+  
+  /**
+isEmpty(map)
+
+tests whether map is empty
+   */
+  let isEmpty = Impl.is_empty;
+  
+  /**
+size(map)
+
+returns the number of entries in map
+   */
+  let size = Impl.cardinal;
+  
+  /**
+hasKey(key, map)
+
+tests if the key key is present in map
+   */
+  let hasKey = Impl.mem;
+  
+  /**
+get(key, map)
+
+returns Some(value) associated with key if it exists in map, None otherwise
+   */
+  let get = Impl.find_opt;
+  
+  /**
+getExn(key, map)
+
+returns the value associated with key if it exists in map, raises Not_found otherwise
+   */
+  let getExn = Impl.find;
+  
+  /**
+set(key, value, map)
+
+returns a new map containing the entries of map with the value of key set to value
+   */
+  let set = Impl.add;
+  
+  /**
+remove(key, map)
+
+returns a new map containing the entries of map with the entry of key key removed
+   */
+  let remove = Impl.remove;
+  
+  /**
+map(fn, map)
+
+returns a new map with the same keys as map where each value, v, has been transformed by calling fn(v)
+   */
+  let map = Impl.map;
+  
+  /**
+mapi(fn, map)
+
+returns a new map with the same keys as map where each value, v, has been transformed by calling fn(key, v)
+   */
+  let mapi = Impl.mapi;
+  
+  /**
+fromList(list)
+
+creates a map from the entries of list, if there are duplicate keys, then the map will contain the value occuring last in list
+   */
+  let fromList = (list) => {
+    Caml.List.fold_left(
+      (m, (key, value)) => Impl.add(key, value, m),
+      Impl.empty,
+      list,
+    );
+  };
+  
+  /**
+toList(map)
+
+returns the entries of map as a list
+   */
+  let toList = Impl.bindings;
+  
+  /**
+fromArray(array)
+
+creates a map from the entries of array, if there are duplicate keys, then the map will contain the value occuring last in array
+   */
+  let fromArray = (array) => {
+    fromList(Caml.Array.to_list(array));
+  };
+  
+  /**
+toArray(map)
+
+returns the entries of map as an array
+   */
+  let toArray = (map) => {
+    Caml.Array.of_list(toList(map));
+  };
+  
+};
+
 module Result = {
   
   /**
@@ -1006,230 +1234,97 @@ changes value of an option according to fn if all inputs are Some value
   
 };
 
-module Map = {
-  module Impl = Caml.Map.Make(String);
-  /**
-Alias for the map type.
-   */
-  type t('value) = Impl.t('value);
-  /**
-The empty map.
-   */
-  let empty = Impl.empty;
+module Graph = {
   
-  /**
-isEmpty(map)
-
-tests whether map is empty
-   */
-  let isEmpty = Impl.is_empty;
-  
-  /**
-size(map)
-
-returns the number of entries in map
-   */
-  let size = Impl.cardinal;
-  
-  /**
-hasKey(key, map)
-
-tests if the key key is present in map
-   */
-  let hasKey = Impl.mem;
-  
-  /**
-get(key, map)
-
-returns Some(value) associated with key if it exists in map, None otherwise
-   */
-  let get = Impl.find_opt;
-  
-  /**
-getExn(key, map)
-
-returns the value associated with key if it exists in map, raises Not_found otherwise
-   */
-  let getExn = Impl.find;
-  
-  /**
-set(key, value, map)
-
-returns a new map containing the entries of map with the value of key set to value
-   */
-  let set = Impl.add;
-  
-  /**
-remove(key, map)
-
-returns a new map containing the entries of map with the entry of key key removed
-   */
-  let remove = Impl.remove;
-  
-  /**
-map(fn, map)
-
-returns a new map with the same keys as map where each value, v, has been transformed by calling fn(v)
-   */
-  let map = Impl.map;
-  
-  /**
-mapi(fn, map)
-
-returns a new map with the same keys as map where each value, v, has been transformed by calling fn(key, v)
-   */
-  let mapi = Impl.mapi;
-  
-  /**
-fromList(list)
-
-creates a map from the entries of list, if there are duplicate keys, then the map will contain the value occuring last in list
-   */
-  let fromList = (list) => {
-    Caml.List.fold_left(
-      (m, (key, value)) => Impl.add(key, value, m),
-      Impl.empty,
-      list,
-    );
+  type t = {
+    nodes: Map.t(int),
+    nodesRev: IntMap.t(string),
+    edges: IntMap.t(IntSet.t),
   };
   
-  /**
-toList(map)
-
-returns the entries of map as a list
-   */
-  let toList = Impl.bindings;
+  type dfsKind =
+    | OnEnter
+    | OnExit;
   
-  /**
-fromArray(array)
-
-creates a map from the entries of array, if there are duplicate keys, then the map will contain the value occuring last in array
-   */
-  let fromArray = (array) => {
-    fromList(Caml.Array.to_list(array));
+  let empty = {nodes: Map.empty, nodesRev: IntMap.empty, edges: IntMap.empty};
+  
+  let addNode = (string, graph) =>
+    if (!Map.hasKey(string, graph.nodes)) {
+      let id = Map.size(graph.nodes);
+      let nodes = Map.set(string, id, graph.nodes);
+      let nodesRev = IntMap.set(id, string, graph.nodesRev);
+      {...graph, nodes, nodesRev};
+    } else {
+      graph;
+    };
+  
+  let addDirected = (u, v, graph) => {
+    let graph = addNode(u, graph);
+    let graph = addNode(v, graph);
+    let u = Map.getExn(u, graph.nodes);
+    let v = Map.getExn(v, graph.nodes);
+    let adjacent =
+      if (!IntMap.hasKey(u, graph.edges)) {
+        IntSet.empty;
+      } else {
+        IntMap.getExn(u, graph.edges);
+      };
+    let edges = IntMap.set(u, IntSet.add(v, adjacent), graph.edges);
+    {...graph, edges};
   };
   
-  /**
-toArray(map)
-
-returns the entries of map as an array
-   */
-  let toArray = (map) => {
-    Caml.Array.of_list(toList(map));
+  let addUndirected = (u, v, graph) => {
+    let graph = addDirected(u, v, graph);
+    let graph = addDirected(v, u, graph);
+    graph;
   };
   
-};
-
-module IntMap = {
-  module Impl = Caml.Map.Make(Int);
-  /**
-Alias for the map type.
-   */
-  type t('value) = Impl.t('value);
-  /**
-The empty map.
-   */
-  let empty = Impl.empty;
+  let dfs = (~kind=OnEnter, fn, initial, root, graph) => {
+    if (!Map.hasKey(root, graph.nodes)) {
+      failwith("Unknown node: " ++ root);
+    };
+    let root = Map.getExn(root, graph.nodes);
+    let result = ref(initial);
+    let visited = ref(IntSet.empty);
+    let rec helper = curr =>
+      if (!IntSet.has(curr, visited^)) {
+        let node = IntMap.getExn(curr, graph.nodesRev);
+        visited := IntSet.add(curr, visited^);
   
-  /**
-isEmpty(map)
-
-tests whether map is empty
-   */
-  let isEmpty = Impl.is_empty;
+        switch (kind) {
+        | OnEnter =>
+          result := fn(result^, node);
+          ();
+        | OnExit => ()
+        };
   
-  /**
-size(map)
-
-returns the number of entries in map
-   */
-  let size = Impl.cardinal;
+        let nextEdges = IntMap.get(curr, graph.edges);
+        switch (nextEdges) {
+        | Some(nextEdges) =>
+          // TODO: Change to iter/forEach.
+          let _ =
+            IntSet.map(
+              next => {
+                helper(next);
+                next;
+              },
+              nextEdges,
+            );
+          ();
+        | None => ()
+        };
   
-  /**
-hasKey(key, map)
-
-tests if the key key is present in map
-   */
-  let hasKey = Impl.mem;
+        switch (kind) {
+        | OnEnter => ()
+        | OnExit =>
+          result := fn(result^, node);
+          ();
+        };
   
-  /**
-get(key, map)
-
-returns Some(value) associated with key if it exists in map, None otherwise
-   */
-  let get = Impl.find_opt;
-  
-  /**
-getExn(key, map)
-
-returns the value associated with key if it exists in map, raises Not_found otherwise
-   */
-  let getExn = Impl.find;
-  
-  /**
-set(key, value, map)
-
-returns a new map containing the entries of map with the value of key set to value
-   */
-  let set = Impl.add;
-  
-  /**
-remove(key, map)
-
-returns a new map containing the entries of map with the entry of key key removed
-   */
-  let remove = Impl.remove;
-  
-  /**
-map(fn, map)
-
-returns a new map with the same keys as map where each value, v, has been transformed by calling fn(v)
-   */
-  let map = Impl.map;
-  
-  /**
-mapi(fn, map)
-
-returns a new map with the same keys as map where each value, v, has been transformed by calling fn(key, v)
-   */
-  let mapi = Impl.mapi;
-  
-  /**
-fromList(list)
-
-creates a map from the entries of list, if there are duplicate keys, then the map will contain the value occuring last in list
-   */
-  let fromList = (list) => {
-    Caml.List.fold_left(
-      (m, (key, value)) => Impl.add(key, value, m),
-      Impl.empty,
-      list,
-    );
-  };
-  
-  /**
-toList(map)
-
-returns the entries of map as a list
-   */
-  let toList = Impl.bindings;
-  
-  /**
-fromArray(array)
-
-creates a map from the entries of array, if there are duplicate keys, then the map will contain the value occuring last in array
-   */
-  let fromArray = (array) => {
-    fromList(Caml.Array.to_list(array));
-  };
-  
-  /**
-toArray(map)
-
-returns the entries of map as an array
-   */
-  let toArray = (map) => {
-    Caml.Array.of_list(toList(map));
+        ();
+      };
+    helper(root);
+    result^;
   };
   
 };

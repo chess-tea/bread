@@ -2,7 +2,7 @@ open BreadCore;
 open Components;
 
 let make = (moduleName, functorArg, keyType) => {
-  <ModuleDef name=moduleName>
+  <ModuleDef name=moduleName priority=25>
     <Raw raw={"module Impl = Caml.Set.Make(" ++ functorArg ++ ");"} />
     <Raw desc="Alias for the set type." raw="type t = Impl.t;" />
     <Raw desc="The empty set." raw="let empty = Impl.empty;" />

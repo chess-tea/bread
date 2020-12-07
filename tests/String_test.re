@@ -80,4 +80,48 @@ describe("String", ({test}) => {
     expect.string(r("", "a", "123")).toEqual("123a");
     expect.string(r("", "", "123")).toEqual("123");
   });
+
+  test("trimLeft", ({expect}) => {
+    let t = String.trimLeft;
+    expect.string(t("")).toEqual("");
+    expect.string(t("a")).toEqual("a");
+    expect.string(t("abc")).toEqual("abc");
+    expect.string(t("abc   ")).toEqual("abc   ");
+    expect.string(t("abc   abc")).toEqual("abc   abc");
+    expect.string(t(" a")).toEqual("a");
+    expect.string(t(" abc")).toEqual("abc");
+    expect.string(t(" abc   ")).toEqual("abc   ");
+    expect.string(t(" abc   abc")).toEqual("abc   abc");
+    expect.string(t("  a")).toEqual("a");
+    expect.string(t("  abc")).toEqual("abc");
+    expect.string(t("  abc   ")).toEqual("abc   ");
+    expect.string(t("  abc   abc")).toEqual("abc   abc");
+    expect.string(t(" \na")).toEqual("a");
+    expect.string(t(" \nabc")).toEqual("abc");
+    expect.string(t(" \tabc   ")).toEqual("abc   ");
+    expect.string(t(" \rabc   abc")).toEqual("abc   abc");
+    expect.string(t(" \r\n\t\012abc   abc")).toEqual("abc   abc");
+  });
+
+  test("trimRight", ({expect}) => {
+    let t = String.trimRight;
+    expect.string(t("")).toEqual("");
+    expect.string(t("a")).toEqual("a");
+    expect.string(t("abc")).toEqual("abc");
+    expect.string(t("   abc")).toEqual("   abc");
+    expect.string(t("abc   abc")).toEqual("abc   abc");
+    expect.string(t("a ")).toEqual("a");
+    expect.string(t("abc ")).toEqual("abc");
+    expect.string(t("   abc ")).toEqual("   abc");
+    expect.string(t("abc   abc ")).toEqual("abc   abc");
+    expect.string(t("a  ")).toEqual("a");
+    expect.string(t("abc  ")).toEqual("abc");
+    expect.string(t("   abc  ")).toEqual("   abc");
+    expect.string(t("abc   abc  ")).toEqual("abc   abc");
+    expect.string(t("a \n ")).toEqual("a");
+    expect.string(t("abc \t")).toEqual("abc");
+    expect.string(t("   abc\r\r")).toEqual("   abc");
+    expect.string(t("abc   abc \n")).toEqual("abc   abc");
+    expect.string(t("abc   abc \r\n\t\012")).toEqual("abc   abc");
+  });
 });

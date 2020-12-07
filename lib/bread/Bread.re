@@ -10,9 +10,73 @@
 
 module Caml = {
   module Array = Array;
+  module Char = Char;
+  module Int = Int;
   module List = List;
+  module Map = Map;
+  module Set = Set;
   module String = String;
   module Scanf = Scanf;
+};
+
+module Int = {
+  /**
+Alias for the int type. Useful for using this module with certain Functors
+   */
+  type t = int;
+  
+  /**
+compare(a, b)
+
+compares a and b. A negative integer is returned when a < b, a positive integer is returned when a > b, and 0 is returned when a equals b
+   */
+  let compare = Caml.Int.compare;
+  
+  /**
+equal(a, b)
+
+tests for equality between a and b
+   */
+  let equal = Caml.Int.equal;
+  
+};
+
+module Char = {
+  /**
+Alias for the char type. Useful for using this module with certain Functors
+   */
+  type t = char;
+  
+  /**
+compare(a, b)
+
+compares a and b. A negative integer is returned when a < b, a positive integer is returned when a > b, and 0 is returned when a equals b
+   */
+  let compare = Caml.Char.compare;
+  
+  /**
+equal(a, b)
+
+tests for equality between a and b
+   */
+  let equal = Caml.Char.equal;
+  
+  /**
+isWhitespace(c)
+
+tests if c is a whitespace character: ' ', '\012', '\n', '\r', or '\t'
+   */
+  let isWhitespace = (c) => {
+    switch (c) {
+    | ' '
+    | '\012'
+    | '\n'
+    | '\r'
+    | '\t' => true
+    | _ => false
+    };
+  };
+  
 };
 
 module String = {
@@ -379,6 +443,51 @@ replaces all occurences of token in string with replacement
         combined;
       };
     combined;
+  };
+  
+  /**
+trim(string)
+
+returns a copy of string with whitespace removed from the front and back
+   */
+  let trim = Caml.String.trim;
+  
+  /**
+trimLeft(string)
+
+returns a copy of string with whitespace removed from the front
+   */
+  let trimLeft = (string) => {
+    let n = length(string);
+    let i = ref(0);
+    let break = ref(false);
+    while (!break^ && i^ < n) {
+      if (!Char.isWhitespace(string.[i^])) {
+        break := true;
+      } else {
+        incr(i);
+      };
+    };
+    sliceToEnd(i^, string);
+  };
+  
+  /**
+trimRight(string)
+
+returns a copy of string with whitespace removed from the back
+   */
+  let trimRight = (string) => {
+    let n = length(string);
+    let i = ref(n - 1);
+    let break = ref(false);
+    while (!break^ && i^ >= 0) {
+      if (!Char.isWhitespace(string.[i^])) {
+        break := true;
+      } else {
+        decr(i);
+      };
+    };
+    slice(0, i^ + 1, string);
   };
   
 };

@@ -303,7 +303,62 @@ open Components;
         "  } else {",
         "    combined;",
         "  };",
-        "combined;"
+        "combined;",
+      ]
+    }}
+  />
+  <Function
+    name="trim"
+    rebind="Caml.String.trim"
+    args=["t"]
+    return="t"
+    argNames=["string"]
+    desc="returns a copy of $1 with whitespace removed from the front and back"
+    seeAlso=["Char.isWhitespace"]
+  />
+  <Function
+    name="trimLeft"
+    args=["t"]
+    return="t"
+    argNames=["string"]
+    desc="returns a copy of $1 with whitespace removed from the front"
+    seeAlso=["Char.isWhitespace"]
+    body={({arg}) => {
+      [
+        "let n = length($1);",
+        "let i = ref(0);",
+        "let break = ref(false);",
+        "while (!break^ && i^ < n) {",
+        "  if (!Char.isWhitespace($1.[i^])) {",
+        "    break := true;",
+        "  } else {",
+        "    incr(i);",
+        "  };",
+        "};",
+        "sliceToEnd(i^, $1);",
+      ]
+    }}
+  />
+  <Function
+    name="trimRight"
+    args=["t"]
+    return="t"
+    argNames=["string"]
+    desc="returns a copy of $1 with whitespace removed from the back"
+    seeAlso=["Char.isWhitespace"]
+    body={({arg}) => {
+      [
+        "let n = length($1);",
+        "let i = ref(n - 1);",
+        "let break = ref(false);",
+        "while (!break^ && i^ >= 0) {",
+        "  if (!Char.isWhitespace($1.[i^])) {",
+        "    break := true;",
+        "  } else {",
+        "    decr(i);",
+        "  };",
+        "};",
+        "slice(0, i^ + 1, $1);",
       ]
     }}
   />

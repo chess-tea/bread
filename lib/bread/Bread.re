@@ -492,6 +492,180 @@ returns a copy of string with whitespace removed from the back
   
 };
 
+module Set = {
+  module Impl = Caml.Set.Make(String);
+  /**
+Alias for the set type.
+   */
+  type t = Impl.t;
+  /**
+The empty set.
+   */
+  let empty = Impl.empty;
+  
+  /**
+fromList(list)
+
+creates a set from the elements of list
+   */
+  let fromList = Impl.of_list;
+  
+  /**
+toList(set)
+
+returns the elements of set as a list
+   */
+  let toList = Impl.elements;
+  
+  /**
+fromArray(array)
+
+creates a set from the elements of array
+   */
+  let fromArray = (array) => {
+    fromList(Caml.Array.to_list(array));
+  };
+  
+  /**
+toArray(set)
+
+returns the elements of set as an array
+   */
+  let toArray = (set) => {
+    Caml.Array.of_list(toList(set));
+  };
+  
+  /**
+isEmpty(set)
+
+tests whether set is empty
+   */
+  let isEmpty = Impl.is_empty;
+  
+  /**
+size(set)
+
+returns the number of elements in set
+   */
+  let size = Impl.cardinal;
+  
+  /**
+has(key, set)
+
+tests if key is present in set
+   */
+  let has = Impl.mem;
+  
+  /**
+add(key, set)
+
+returns a new set containing the elements of set with key added
+   */
+  let add = Impl.add;
+  
+  /**
+remove(key, set)
+
+returns a new set containing the elements of set with key removed
+   */
+  let remove = Impl.remove;
+  
+  /**
+map(fn, set)
+
+returns a new set where each element, el, of set has been transformed by calling fn(el)
+   */
+  let map = Impl.map;
+  
+};
+
+module IntSet = {
+  module Impl = Caml.Set.Make(Int);
+  /**
+Alias for the set type.
+   */
+  type t = Impl.t;
+  /**
+The empty set.
+   */
+  let empty = Impl.empty;
+  
+  /**
+fromList(list)
+
+creates a set from the elements of list
+   */
+  let fromList = Impl.of_list;
+  
+  /**
+toList(set)
+
+returns the elements of set as a list
+   */
+  let toList = Impl.elements;
+  
+  /**
+fromArray(array)
+
+creates a set from the elements of array
+   */
+  let fromArray = (array) => {
+    fromList(Caml.Array.to_list(array));
+  };
+  
+  /**
+toArray(set)
+
+returns the elements of set as an array
+   */
+  let toArray = (set) => {
+    Caml.Array.of_list(toList(set));
+  };
+  
+  /**
+isEmpty(set)
+
+tests whether set is empty
+   */
+  let isEmpty = Impl.is_empty;
+  
+  /**
+size(set)
+
+returns the number of elements in set
+   */
+  let size = Impl.cardinal;
+  
+  /**
+has(key, set)
+
+tests if key is present in set
+   */
+  let has = Impl.mem;
+  
+  /**
+add(key, set)
+
+returns a new set containing the elements of set with key added
+   */
+  let add = Impl.add;
+  
+  /**
+remove(key, set)
+
+returns a new set containing the elements of set with key removed
+   */
+  let remove = Impl.remove;
+  
+  /**
+map(fn, set)
+
+returns a new set where each element, el, of set has been transformed by calling fn(el)
+   */
+  let map = Impl.map;
+  
+};
+
 module Result = {
   
   /**
@@ -828,6 +1002,234 @@ changes value of an option according to fn if all inputs are Some value
       fn(option1, option2, option3, option4, option5, option6, option7)
     | _ => None
     }
+  };
+  
+};
+
+module Map = {
+  module Impl = Caml.Map.Make(String);
+  /**
+Alias for the map type.
+   */
+  type t('value) = Impl.t('value);
+  /**
+The empty map.
+   */
+  let empty = Impl.empty;
+  
+  /**
+isEmpty(map)
+
+tests whether map is empty
+   */
+  let isEmpty = Impl.is_empty;
+  
+  /**
+size(map)
+
+returns the number of entries in map
+   */
+  let size = Impl.cardinal;
+  
+  /**
+hasKey(key, map)
+
+tests if the key key is present in map
+   */
+  let hasKey = Impl.mem;
+  
+  /**
+get(key, map)
+
+returns Some(value) associated with key if it exists in map, None otherwise
+   */
+  let get = Impl.find_opt;
+  
+  /**
+getExn(key, map)
+
+returns the value associated with key if it exists in map, raises Not_found otherwise
+   */
+  let getExn = Impl.find;
+  
+  /**
+set(key, value, map)
+
+returns a new map containing the entries of map with the value of key set to value
+   */
+  let set = Impl.add;
+  
+  /**
+remove(key, map)
+
+returns a new map containing the entries of map with the entry of key key removed
+   */
+  let remove = Impl.remove;
+  
+  /**
+map(fn, map)
+
+returns a new map with the same keys as map where each value, v, has been transformed by calling fn(v)
+   */
+  let map = Impl.map;
+  
+  /**
+mapi(fn, map)
+
+returns a new map with the same keys as map where each value, v, has been transformed by calling fn(key, v)
+   */
+  let mapi = Impl.mapi;
+  
+  /**
+fromList(list)
+
+creates a map from the entries of list, if there are duplicate keys, then the map will contain the value occuring last in list
+   */
+  let fromList = (list) => {
+    Caml.List.fold_left(
+      (m, (key, value)) => Impl.add(key, value, m),
+      Impl.empty,
+      list,
+    );
+  };
+  
+  /**
+toList(map)
+
+returns the entries of map as a list
+   */
+  let toList = Impl.bindings;
+  
+  /**
+fromArray(array)
+
+creates a map from the entries of array, if there are duplicate keys, then the map will contain the value occuring last in array
+   */
+  let fromArray = (array) => {
+    fromList(Caml.Array.to_list(array));
+  };
+  
+  /**
+toArray(map)
+
+returns the entries of map as an array
+   */
+  let toArray = (map) => {
+    Caml.Array.of_list(toList(map));
+  };
+  
+};
+
+module IntMap = {
+  module Impl = Caml.Map.Make(Int);
+  /**
+Alias for the map type.
+   */
+  type t('value) = Impl.t('value);
+  /**
+The empty map.
+   */
+  let empty = Impl.empty;
+  
+  /**
+isEmpty(map)
+
+tests whether map is empty
+   */
+  let isEmpty = Impl.is_empty;
+  
+  /**
+size(map)
+
+returns the number of entries in map
+   */
+  let size = Impl.cardinal;
+  
+  /**
+hasKey(key, map)
+
+tests if the key key is present in map
+   */
+  let hasKey = Impl.mem;
+  
+  /**
+get(key, map)
+
+returns Some(value) associated with key if it exists in map, None otherwise
+   */
+  let get = Impl.find_opt;
+  
+  /**
+getExn(key, map)
+
+returns the value associated with key if it exists in map, raises Not_found otherwise
+   */
+  let getExn = Impl.find;
+  
+  /**
+set(key, value, map)
+
+returns a new map containing the entries of map with the value of key set to value
+   */
+  let set = Impl.add;
+  
+  /**
+remove(key, map)
+
+returns a new map containing the entries of map with the entry of key key removed
+   */
+  let remove = Impl.remove;
+  
+  /**
+map(fn, map)
+
+returns a new map with the same keys as map where each value, v, has been transformed by calling fn(v)
+   */
+  let map = Impl.map;
+  
+  /**
+mapi(fn, map)
+
+returns a new map with the same keys as map where each value, v, has been transformed by calling fn(key, v)
+   */
+  let mapi = Impl.mapi;
+  
+  /**
+fromList(list)
+
+creates a map from the entries of list, if there are duplicate keys, then the map will contain the value occuring last in list
+   */
+  let fromList = (list) => {
+    Caml.List.fold_left(
+      (m, (key, value)) => Impl.add(key, value, m),
+      Impl.empty,
+      list,
+    );
+  };
+  
+  /**
+toList(map)
+
+returns the entries of map as a list
+   */
+  let toList = Impl.bindings;
+  
+  /**
+fromArray(array)
+
+creates a map from the entries of array, if there are duplicate keys, then the map will contain the value occuring last in array
+   */
+  let fromArray = (array) => {
+    fromList(Caml.Array.to_list(array));
+  };
+  
+  /**
+toArray(map)
+
+returns the entries of map as an array
+   */
+  let toArray = (map) => {
+    Caml.Array.of_list(toList(map));
   };
   
 };

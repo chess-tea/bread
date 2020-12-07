@@ -1,7 +1,7 @@
 open BreadCore;
 open Components;
 
-<ModuleDef name="String">
+<ModuleDef name="String" priority=50>
   <Raw
     desc={
       "Alias for the string type. Useful for using this module with certain "

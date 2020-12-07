@@ -1,0 +1,36 @@
+let dfsExit = (fn, initial, root, graph) => {
+  if (!Map.hasKey(root, graph.nodes)) {
+    failwith("Unknown node: " ++ root);
+  };
+  let root = Map.getExn(root, graph.nodes);
+  let result = ref(initial);
+  let visited = ref(IntSet.empty);
+  let rec helper = (curr, weight, rootCall) =>
+    if (!IntSet.has(curr, visited^)) {
+      let node = IntMap.getExn(curr, graph.nodesRev);
+      visited := IntSet.add(curr, visited^);
+      let preValue = result^;
+      let nextEdges = IntMap.get(curr, graph.edges);
+      switch (nextEdges) {
+      | Some(nextEdges) =>
+        // TODO: Change to iter/forEach.
+        let _ =
+          IntMap.mapi(
+            (next, weight) => {
+              helper(next, weight, false);
+              next;
+            },
+            nextEdges,
+          );
+        ();
+      | None => ()
+      };
+      let postValue = result^;
+      if (!rootCall) {
+        result := fn(preValue, postValue, node, weight);
+      };
+      ();
+    };
+  helper(root, -1, true);
+  result^;
+};

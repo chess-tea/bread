@@ -9,4 +9,5 @@ open Components;
   <Template name="graph_weighted/addDirected" />
   <Template name="graph_weighted/addUndirected" />
   <Template name="graph_weighted/dfs" />
+  <Template name="graph_weighted/dfsExit" />
 </ModuleDef>;

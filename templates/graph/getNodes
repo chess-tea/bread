@@ -1,0 +1,5 @@
+let getNodes = (graph) => {
+  let entries = Map.toList(graph.nodes);
+  let keys = Caml.List.map(((key, _value)) => key, entries);
+  keys;
+};

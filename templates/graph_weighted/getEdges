@@ -1,0 +1,17 @@
+let getEdges = (node, graph) => {
+  let node =
+    switch (Map.get(node, graph.nodes)) {
+    | Some(node) => node
+    | None => failwith("Unknown node: " ++ node)
+    };
+  let edges =
+    switch (IntMap.get(node, graph.edges)) {
+    | Some(edges) => IntMap.toList(edges)
+    | None => []
+    };
+  let edges = Caml.List.map(
+    ((node, weight)) => (IntMap.getExn(node, graph.nodesRev), weight),
+    edges,
+  );
+  edges;
+};

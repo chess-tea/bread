@@ -1337,6 +1337,30 @@ module GraphWeighted = {
   
   let empty = {nodes: Map.empty, nodesRev: IntMap.empty, edges: IntMap.empty};
   
+  let getNodes = (graph) => {
+    let entries = Map.toList(graph.nodes);
+    let keys = Caml.List.map(((key, _value)) => key, entries);
+    keys;
+  };
+  
+  let getEdges = (node, graph) => {
+    let node =
+      switch (Map.get(node, graph.nodes)) {
+      | Some(node) => node
+      | None => failwith("Unknown node: " ++ node)
+      };
+    let edges =
+      switch (IntMap.get(node, graph.edges)) {
+      | Some(edges) => IntMap.toList(edges)
+      | None => []
+      };
+    let edges = Caml.List.map(
+      ((node, weight)) => (IntMap.getExn(node, graph.nodesRev), weight),
+      edges,
+    );
+    edges;
+  };
+  
   let addNode = (string, graph) =>
     if (!Map.hasKey(string, graph.nodes)) {
       let id = Map.size(graph.nodes);
@@ -1435,6 +1459,27 @@ module Graph = {
     | OnExit;
   
   let empty = {nodes: Map.empty, nodesRev: IntMap.empty, edges: IntMap.empty};
+  
+  let getNodes = (graph) => {
+    let entries = Map.toList(graph.nodes);
+    let keys = Caml.List.map(((key, _value)) => key, entries);
+    keys;
+  };
+  
+  let getEdges = (node, graph) => {
+    let node =
+      switch (Map.get(node, graph.nodes)) {
+      | Some(node) => node
+      | None => failwith("Unknown node: " ++ node)
+      };
+    let edges =
+      switch (IntMap.get(node, graph.edges)) {
+      | Some(edges) => IntSet.toList(edges)
+      | None => []
+      };
+    let edges = Caml.List.map(node => IntMap.getExn(node, graph.nodesRev), edges);
+    edges;
+  };
   
   let addNode = (string, graph) =>
     if (!Map.hasKey(string, graph.nodes)) {

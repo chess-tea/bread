@@ -5,6 +5,8 @@ open Components;
   <Template name="graph/t" />
   <Template name="graph/dfsKind" />
   <Template name="graph/empty" />
+  <Template name="graph/getNodes" />
+  <Template name="graph/getEdges" />
   <Template name="graph/addNode" />
   <Template name="graph/addDirected" />
   <Template name="graph/addUndirected" />

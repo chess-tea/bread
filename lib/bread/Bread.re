@@ -1234,6 +1234,95 @@ changes value of an option according to fn if all inputs are Some value
   
 };
 
+module MutableGraph = {
+  
+  type t = {
+    mutable nodes: Map.t(int),
+    mutable nodesRev: IntMap.t(string),
+    mutable edges: IntMap.t(IntSet.t),
+  };
+  
+  let empty = {nodes: Map.empty, nodesRev: IntMap.empty, edges: IntMap.empty};
+  
+  let getNodes = (graph) => {
+    let entries = Map.toList(graph.nodes);
+    let keys = Caml.List.map(((key, _value)) => key, entries);
+    keys;
+  };
+  
+  let getEdges = (node, graph) => {
+    let node =
+      switch (Map.get(node, graph.nodes)) {
+      | Some(node) => node
+      | None => failwith("Unknown node: " ++ node)
+      };
+    let edges =
+      switch (IntMap.get(node, graph.edges)) {
+      | Some(edges) => IntSet.toList(edges)
+      | None => []
+      };
+    let edges = Caml.List.map(node => IntMap.getExn(node, graph.nodesRev), edges);
+    edges;
+  };
+  
+  let addNode = (string, graph) =>
+    if (!Map.hasKey(string, graph.nodes)) {
+      let id = Map.size(graph.nodes);
+      graph.nodes = Map.set(string, id, graph.nodes);
+      graph.nodesRev = IntMap.set(id, string, graph.nodesRev);
+    };
+  
+  let addDirected = (u, v, graph) => {
+    addNode(u, graph);
+    addNode(v, graph);
+    let u = Map.getExn(u, graph.nodes);
+    let v = Map.getExn(v, graph.nodes);
+    if (!IntMap.hasKey(u, graph.edges)) {
+      graph.edges = IntMap.set(u, IntSet.empty, graph.edges);
+    };
+    // TODO: Change from get/set to a single update.
+    let edgeSet = IntMap.getExn(u, graph.edges);
+    graph.edges = IntMap.set(u, IntSet.add(v, edgeSet), graph.edges);
+    ();
+  };
+  
+  let addUndirected = (u, v, graph) => {
+    addDirected(u, v, graph);
+    addDirected(v, u, graph);
+    ();
+  };
+  
+  let dfs =
+      (
+        ~onEnter: string => unit=_node => (),
+        ~onExit: string => unit=_node => (),
+        root,
+        graph,
+      ) => {
+    let root = Map.getExn(root, graph.nodes);
+    let visited = ref(IntSet.empty);
+    let rec helper = curr =>
+      if (!IntSet.has(curr, visited^)) {
+        let node = IntMap.getExn(curr, graph.nodesRev);
+        visited := IntSet.add(curr, visited^);
+        onEnter(node);
+        let nextEdges = IntMap.getExn(curr, graph.edges);
+        // TODO: Change to iter/forEach.
+        let _ =
+          IntSet.map(
+            next => {
+              helper(next);
+              next;
+            },
+            nextEdges,
+          );
+        onExit(node);
+      };
+    helper(root);
+  };
+  
+};
+
 module GraphWeighted = {
   
   type t = {
@@ -1325,43 +1414,6 @@ module GraphWeighted = {
           };
         };
   
-        ();
-      };
-    helper(root, -1, true);
-    result^;
-  };
-  
-  let dfsExit = (fn, initial, root, graph) => {
-    if (!Map.hasKey(root, graph.nodes)) {
-      failwith("Unknown node: " ++ root);
-    };
-    let root = Map.getExn(root, graph.nodes);
-    let result = ref(initial);
-    let visited = ref(IntSet.empty);
-    let rec helper = (curr, weight, rootCall) =>
-      if (!IntSet.has(curr, visited^)) {
-        let node = IntMap.getExn(curr, graph.nodesRev);
-        visited := IntSet.add(curr, visited^);
-        let preValue = result^;
-        let nextEdges = IntMap.get(curr, graph.edges);
-        switch (nextEdges) {
-        | Some(nextEdges) =>
-          // TODO: Change to iter/forEach.
-          let _ =
-            IntMap.mapi(
-              (next, weight) => {
-                helper(next, weight, false);
-                next;
-              },
-              nextEdges,
-            );
-          ();
-        | None => ()
-        };
-        let postValue = result^;
-        if (!rootCall) {
-          result := fn(preValue, postValue, node, weight);
-        };
         ();
       };
     helper(root, -1, true);

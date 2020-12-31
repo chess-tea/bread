@@ -17,7 +17,7 @@
   "dependencies": {
     "@esy-ocaml/reason": "*",
     "@opam/dune": "*",
-    "ocaml": "~4.9.0"
+    "ocaml": "~4.10.0"
   },
   "devDependencies": {
     "@opam/merlin": "*",
